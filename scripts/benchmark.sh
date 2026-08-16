@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────
-# benchmark.sh — Benchmark completo RM-NSGA-II vs Baselines
+# benchmark.sh — Benchmark completo FM-NSGA-II vs Baselines
 # Genera tabla comparativa y exporta benchmark_results.csv
 # Uso: ./scripts/benchmark.sh  (desde la raíz del proyecto)
 # ─────────────────────────────────────────────────────────────────
@@ -11,7 +11,7 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PROJECT_DIR/build"
 
 echo "╔══════════════════════════════════════════════════════╗"
-echo "║    RM-NSGA-II — Benchmark completo multi-dataset    ║"
+echo "║    FM-NSGA-II — Benchmark completo multi-dataset    ║"
 echo "╚══════════════════════════════════════════════════════╝"
 echo ""
 echo "Nota: este proceso puede tardar varios minutos."

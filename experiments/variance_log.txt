@@ -25,7 +25,7 @@ Iniciando evaluación de varianza: 20 ejecuciones de benchmark...
 Dataset: Adversarial(52D)
   - Decision Tree (depth=8): Acc = 0.9875 ± 0.0000 | Time = 1143ms ± 43ms
   - Gaussian Naive Bayes: Acc = 0.7500 ± 0.0000 | Time = 0ms ± 0ms
-  - RM-NSGA-II     : Acc = 0.3987 ± 0.0334 | Time = 63136ms ± 4337ms
+  - FM-NSGA-II     : Acc = 0.3987 ± 0.0334 | Time = 63136ms ± 4337ms
   - SVM-Linear (C=1): Acc = 0.4113 ± 0.0172 | Time = 762ms ± 6ms
   - SVM-RBF (C=1 γ=1.00): Acc = 0.4125 ± 0.0000 | Time = 407ms ± 24ms
   - k-NN (k=3)     : Acc = 0.4250 ± 0.0000 | Time = 0ms ± 0ms
@@ -34,7 +34,7 @@ Dataset: Adversarial(52D)
 Dataset: Blobs (2D)
   - Decision Tree (depth=8): Acc = 1.0000 ± 0.0000 | Time = 11ms ± 0ms
   - Gaussian Naive Bayes: Acc = 1.0000 ± 0.0000 | Time = 0ms ± 0ms
-  - RM-NSGA-II     : Acc = 0.9981 ± 0.0061 | Time = 5643ms ± 495ms
+  - FM-NSGA-II     : Acc = 0.9981 ± 0.0061 | Time = 5643ms ± 495ms
   - SVM-Linear (C=1): Acc = 1.0000 ± 0.0000 | Time = 10ms ± 2ms
   - SVM-RBF (C=1 γ=1.00): Acc = 1.0000 ± 0.0000 | Time = 28ms ± 6ms
   - k-NN (k=3)     : Acc = 1.0000 ± 0.0000 | Time = 0ms ± 0ms
@@ -43,7 +43,7 @@ Dataset: Blobs (2D)
 Dataset: BreastCancer(30D)
   - Decision Tree (depth=8): Acc = 0.9204 ± 0.0000 | Time = 977ms ± 44ms
   - Gaussian Naive Bayes: Acc = 0.9115 ± 0.0000 | Time = 0ms ± 0ms
-  - RM-NSGA-II     : Acc = 0.9296 ± 0.0142 | Time = 49945ms ± 2103ms
+  - FM-NSGA-II     : Acc = 0.9296 ± 0.0142 | Time = 49945ms ± 2103ms
   - SVM-Linear (C=1): Acc = 0.9858 ± 0.0044 | Time = 318ms ± 45ms
   - SVM-RBF (C=1 γ=1.00): Acc = 0.9850 ± 0.0071 | Time = 922ms ± 154ms
   - k-NN (k=3)     : Acc = 0.9823 ± 0.0000 | Time = 0ms ± 0ms
@@ -52,7 +52,7 @@ Dataset: BreastCancer(30D)
 Dataset: Chessboard (2D)
   - Decision Tree (depth=8): Acc = 0.7375 ± 0.0000 | Time = 33ms ± 2ms
   - Gaussian Naive Bayes: Acc = 0.5375 ± 0.0000 | Time = 0ms ± 0ms
-  - RM-NSGA-II     : Acc = 0.5550 ± 0.0364 | Time = 5354ms ± 309ms
+  - FM-NSGA-II     : Acc = 0.5550 ± 0.0364 | Time = 5354ms ± 309ms
   - SVM-Linear (C=1): Acc = 0.5369 ± 0.0125 | Time = 21ms ± 3ms
   - SVM-RBF (C=1 γ=1.00): Acc = 0.5644 ± 0.0117 | Time = 79ms ± 9ms
   - k-NN (k=3)     : Acc = 0.8000 ± 0.0000 | Time = 0ms ± 0ms
@@ -61,7 +61,7 @@ Dataset: Chessboard (2D)
 Dataset: Circles (2D)
   - Decision Tree (depth=8): Acc = 1.0000 ± 0.0000 | Time = 28ms ± 1ms
   - Gaussian Naive Bayes: Acc = 1.0000 ± 0.0000 | Time = 0ms ± 0ms
-  - RM-NSGA-II     : Acc = 0.9613 ± 0.0397 | Time = 5956ms ± 717ms
+  - FM-NSGA-II     : Acc = 0.9613 ± 0.0397 | Time = 5956ms ± 717ms
   - SVM-Linear (C=1): Acc = 0.4150 ± 0.0245 | Time = 23ms ± 2ms
   - SVM-RBF (C=1 γ=1.00): Acc = 1.0000 ± 0.0000 | Time = 99ms ± 11ms
   - k-NN (k=3)     : Acc = 1.0000 ± 0.0000 | Time = 0ms ± 0ms
@@ -70,7 +70,7 @@ Dataset: Circles (2D)
 Dataset: Iris (4D)
   - Decision Tree (depth=8): Acc = 0.9667 ± 0.0000 | Time = 1ms ± 0ms
   - Gaussian Naive Bayes: Acc = 0.9667 ± 0.0000 | Time = 0ms ± 0ms
-  - RM-NSGA-II     : Acc = 0.9567 ± 0.0244 | Time = 3250ms ± 220ms
+  - FM-NSGA-II     : Acc = 0.9567 ± 0.0244 | Time = 3250ms ± 220ms
   - SVM-Linear (C=1): Acc = 0.9233 ± 0.0473 | Time = 3ms ± 0ms
   - SVM-RBF (C=1 γ=1.00): Acc = 0.9667 ± 0.0000 | Time = 9ms ± 2ms
   - k-NN (k=3)     : Acc = 0.9667 ± 0.0000 | Time = 0ms ± 0ms
@@ -79,7 +79,7 @@ Dataset: Iris (4D)
 Dataset: Spirals (2D)
   - Decision Tree (depth=8): Acc = 0.9500 ± 0.0000 | Time = 40ms ± 2ms
   - Gaussian Naive Bayes: Acc = 0.6375 ± 0.0000 | Time = 0ms ± 0ms
-  - RM-NSGA-II     : Acc = 0.6506 ± 0.0897 | Time = 5392ms ± 506ms
+  - FM-NSGA-II     : Acc = 0.6506 ± 0.0897 | Time = 5392ms ± 506ms
   - SVM-Linear (C=1): Acc = 0.6350 ± 0.0188 | Time = 20ms ± 3ms
   - SVM-RBF (C=1 γ=1.00): Acc = 0.6412 ± 0.0082 | Time = 73ms ± 9ms
   - k-NN (k=3)     : Acc = 1.0000 ± 0.0000 | Time = 0ms ± 0ms
@@ -88,7 +88,7 @@ Dataset: Spirals (2D)
 Dataset: Two Moons (2D)
   - Decision Tree (depth=8): Acc = 0.9750 ± 0.0000 | Time = 25ms ± 5ms
   - Gaussian Naive Bayes: Acc = 0.8500 ± 0.0000 | Time = 0ms ± 0ms
-  - RM-NSGA-II     : Acc = 0.8619 ± 0.0285 | Time = 5852ms ± 646ms
+  - FM-NSGA-II     : Acc = 0.8619 ± 0.0285 | Time = 5852ms ± 646ms
   - SVM-Linear (C=1): Acc = 0.8713 ± 0.0233 | Time = 18ms ± 4ms
   - SVM-RBF (C=1 γ=1.00): Acc = 0.8600 ± 0.0132 | Time = 60ms ± 12ms
   - k-NN (k=3)     : Acc = 0.9750 ± 0.0000 | Time = 0ms ± 0ms
@@ -97,7 +97,7 @@ Dataset: Two Moons (2D)
 Dataset: Wine (13D)
   - Decision Tree (depth=8): Acc = 0.9143 ± 0.0000 | Time = 19ms ± 0ms
   - Gaussian Naive Bayes: Acc = 0.9714 ± 0.0000 | Time = 0ms ± 0ms
-  - RM-NSGA-II     : Acc = 0.9471 ± 0.0232 | Time = 8109ms ± 413ms
+  - FM-NSGA-II     : Acc = 0.9471 ± 0.0232 | Time = 8109ms ± 413ms
   - SVM-Linear (C=1): Acc = 0.9986 ± 0.0064 | Time = 13ms ± 1ms
   - SVM-RBF (C=1 γ=1.00): Acc = 0.9986 ± 0.0064 | Time = 51ms ± 8ms
   - k-NN (k=3)     : Acc = 1.0000 ± 0.0000 | Time = 0ms ± 0ms

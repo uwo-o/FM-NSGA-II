@@ -9,7 +9,7 @@ classifiers = df["classifier"].unique()
 
 # --- TABLA DE ACCURACY ---
 table_acc = "\\begin{table*}[t]\n\\centering\n"
-table_acc += "\\caption{Precisión global (Accuracy) en la batería de pruebas calculada a lo largo de 20 ejecuciones independientes. Se reporta la media y la desviación estándar ($\pm \sigma$) para exponer la naturaleza estocástica del RM-NSGA-II. Se evidencia cómo los modelos lineales colapsan en distribuciones complejas (Circles, Two Moons), mientras que el RM-NSGA-II logra mantener un rendimiento top-tier consistente, salvo frente al ruido extremo de la maldición de la dimensionalidad (Adversarial 52D) donde los Decision Trees toman ventaja por su Feature Selection inherente. El mejor desempeño medio por dataset se resalta en negrita.}\n"
+table_acc += "\\caption{Precisión global (Accuracy) en la batería de pruebas calculada a lo largo de 20 ejecuciones independientes. Se reporta la media y la desviación estándar ($\pm \sigma$) para exponer la naturaleza estocástica del FM-NSGA-II. Se evidencia cómo los modelos lineales colapsan en distribuciones complejas (Circles, Two Moons), mientras que el FM-NSGA-II logra mantener un rendimiento top-tier consistente, salvo frente al ruido extremo de la maldición de la dimensionalidad (Adversarial 52D) donde los Decision Trees toman ventaja por su Feature Selection inherente. El mejor desempeño medio por dataset se resalta en negrita.}\n"
 table_acc += "\\vspace{0.2cm}\n"
 table_acc += "\\resizebox{\\textwidth}{!}{\n"
 table_acc += "\\begin{tabular}{l" + "c" * len(classifiers) + "}\n"
@@ -46,7 +46,7 @@ table_acc += "\\end{tabular}\n}\n\\label{tab:accuracy}\n\\end{table*}\n"
 
 # --- TABLA DE TIEMPOS ---
 table_time = "\\begin{table*}[t]\n\\centering\n"
-table_time += "\\caption{Costo computacional de convergencia y tiempos de entrenamiento empírico (expresados en milisegundos $\pm \sigma$ tras 20 iteraciones). Al tratarse de un algoritmo heurístico poblacional (NSGA-II) que debe evaluar distancias proyectadas ortogonalmente a un colector paramétrico complejo, el RM-NSGA-II expone un orden de complejidad temporal manifiestamente superior frente a los clasificadores deterministas clásicos, logrando viabilidad únicamente a través de paralelismo asíncrono y mini-batching evolutivo.}\n"
+table_time += "\\caption{Costo computacional de convergencia y tiempos de entrenamiento empírico (expresados en milisegundos $\pm \sigma$ tras 20 iteraciones). Al tratarse de un algoritmo heurístico poblacional (NSGA-II) que debe evaluar distancias proyectadas ortogonalmente a un colector paramétrico complejo, el FM-NSGA-II expone un orden de complejidad temporal manifiestamente superior frente a los clasificadores deterministas clásicos, logrando viabilidad únicamente a través de paralelismo asíncrono y mini-batching evolutivo.}\n"
 table_time += "\\vspace{0.2cm}\n"
 table_time += "\\resizebox{\\textwidth}{!}{\n"
 table_time += "\\begin{tabular}{l" + "r" * len(classifiers) + "}\n"

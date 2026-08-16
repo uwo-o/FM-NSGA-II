@@ -16,7 +16,7 @@ int main() {
     cfg.max_harmonics = 2; // H=2
     cfg.verbose = false;
     
-    RMClassifier clf(cfg);
+    FMClassifier clf(cfg);
     clf.fit(moons);
     
     auto manifolds = clf.manifolds();

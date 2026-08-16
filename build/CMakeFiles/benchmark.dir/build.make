@@ -96,7 +96,7 @@ benchmark_EXTERNAL_OBJECTS =
 benchmark: CMakeFiles/benchmark.dir/experiments/benchmark.cpp.o
 benchmark: CMakeFiles/benchmark.dir/build.make
 benchmark: CMakeFiles/benchmark.dir/compiler_depend.ts
-benchmark: librm_nsga2_core.a
+benchmark: libfm_nsga2_core.a
 benchmark: /usr/lib/libgomp.so
 benchmark: /usr/lib/libpthread.a
 benchmark: CMakeFiles/benchmark.dir/link.txt

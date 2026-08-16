@@ -60,7 +60,7 @@ def plot_2d_boundaries(dataset_path="data/moons_2d.csv"):
     n_cls = len(classes)
 
     fig, ax = plt.subplots(1, 1, figsize=(8, 6))
-    ax.set_title("RM-NSGA-II — Fronteras de decisión", fontsize=13)
+    ax.set_title("FM-NSGA-II — Fronteras de decisión", fontsize=13)
 
     # Puntos del dataset
     for k, cls in enumerate(classes):
@@ -95,7 +95,7 @@ def plot_benchmark_results(csv_path="benchmark_results.csv"):
     offset = np.linspace(-0.4, 0.4, len(classifiers), endpoint=True)
 
     fig, ax = plt.subplots(figsize=(14, 5))
-    ax.set_title("Comparación de Accuracy — RM-NSGA-II vs Baselines", fontsize=13)
+    ax.set_title("Comparación de Accuracy — FM-NSGA-II vs Baselines", fontsize=13)
 
     bars = []
     for ki, clf in enumerate(classifiers):
@@ -103,9 +103,12 @@ def plot_benchmark_results(csv_path="benchmark_results.csv"):
         for ds in datasets:
             row = df[(df["dataset"] == ds) & (df["classifier"] == clf)]
             accs.append(row["accuracy"].values[0] if len(row) else 0.0)
-        color = "#E63946" if "NSGA" in clf else PALETTE[ki % len(PALETTE)]
+        CUSTOM_PALETTE = ["#4A90E2", "#9013FE", "#F5A623", "#D0021B", "#BD10E0", "#50E3C2", "#8B572A"]
+        is_ours = "NSGA" in clf
+        color = "limegreen" if is_ours else CUSTOM_PALETTE[ki % len(CUSTOM_PALETTE)]
+        alpha_val = 1.0 if is_ours else 0.35
         b = ax.bar(x + offset[ki], accs, width, label=clf[:20],
-                   color=color, alpha=0.85, edgecolor='white')
+                   color=color, alpha=alpha_val, edgecolor='white')
         bars.append(b)
 
     ax.set_xticks(x)
@@ -144,9 +147,12 @@ def plot_time_results(csv_path="benchmark_results.csv"):
             t = row["train_ms"].values[0] if len(row) else 1.0
             # Evitar log(0) sumando 1ms
             times.append(max(t, 1.0))
-        color = "#E63946" if "NSGA" in clf else PALETTE[ki % len(PALETTE)]
+        CUSTOM_PALETTE = ["#4A90E2", "#9013FE", "#F5A623", "#D0021B", "#BD10E0", "#50E3C2", "#8B572A"]
+        is_ours = "NSGA" in clf
+        color = "limegreen" if is_ours else CUSTOM_PALETTE[ki % len(CUSTOM_PALETTE)]
+        alpha_val = 1.0 if is_ours else 0.35
         ax.bar(x + offset[ki], times, width, label=clf[:20],
-               color=color, alpha=0.85, edgecolor='white')
+               color=color, alpha=alpha_val, edgecolor='white')
 
     ax.set_xticks(x)
     ax.set_xticklabels([d[:18] for d in datasets], rotation=15, ha='right')

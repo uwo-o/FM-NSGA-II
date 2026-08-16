@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(rm_nsga2 VERSION 1.0 LANGUAGES CXX)
+project(fm_nsga2 VERSION 1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -29,17 +29,17 @@ set(CORE_SOURCES
     src/nsga2.cpp
 )
 
-add_library(rm_nsga2_core STATIC ${CORE_SOURCES})
-target_include_directories(rm_nsga2_core PUBLIC include baselines)
-target_link_libraries(rm_nsga2_core PUBLIC OpenMP::OpenMP_CXX)
+add_library(fm_nsga2_core STATIC ${CORE_SOURCES})
+target_include_directories(fm_nsga2_core PUBLIC include baselines)
+target_link_libraries(fm_nsga2_core PUBLIC OpenMP::OpenMP_CXX)
 
 # --- Main executable (demo) ---
-add_executable(rm_nsga2 src/main.cpp)
-target_link_libraries(rm_nsga2 rm_nsga2_core)
+add_executable(fm_nsga2 src/main.cpp)
+target_link_libraries(fm_nsga2 fm_nsga2_core)
 
 # --- Benchmark executable ---
 add_executable(benchmark experiments/benchmark.cpp)
-target_link_libraries(benchmark rm_nsga2_core)
+target_link_libraries(benchmark fm_nsga2_core)
 
 # --- Copy data scripts to build dir ---
 configure_file(

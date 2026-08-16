@@ -20,7 +20,7 @@ def generate_report(csv_path="benchmark_results.csv", out_path="report.tex"):
     classifiers = df["classifier"].unique()
 
     # Identificar el modelo propuesto
-    prop = "RM-NSGA-II"
+    prop = "FM-NSGA-II"
     if prop not in classifiers:
         prop = classifiers[0]
 
@@ -119,7 +119,7 @@ def generate_report(csv_path="benchmark_results.csv", out_path="report.tex"):
 \\usepackage{{hyperref}}
 \\geometry{{margin=2.5cm}}
 
-\\title{{\\textbf{{Reporte de Rendimiento: RM-NSGA-II}}\\\\ \\Large Evaluación Exhaustiva vs. Baselines}}
+\\title{{\\textbf{{Reporte de Rendimiento: FM-NSGA-II}}\\\\ \\Large Evaluación Exhaustiva vs. Baselines}}
 \\author{{Generado Automáticamente}}
 \\date{{\\today}}
 
@@ -127,7 +127,7 @@ def generate_report(csv_path="benchmark_results.csv", out_path="report.tex"):
 \\maketitle
 
 \\begin{{abstract}}
-Este documento presenta los resultados del benchmark realizado sobre el modelo \\textbf{{RM-NSGA-II}} en comparación con varios clasificadores tradicionales (k-NN, Naive Bayes, SVM-RBF, Decision Tree). Se evalúa tanto el rendimiento predictivo (Accuracy y F1-Score) como la escalabilidad y tiempo de entrenamiento en datasets sintéticos y reales de diferente dimensionalidad.
+Este documento presenta los resultados del benchmark realizado sobre el modelo \\textbf{{FM-NSGA-II}} en comparación con varios clasificadores tradicionales (k-NN, Naive Bayes, SVM-RBF, Decision Tree). Se evalúa tanto el rendimiento predictivo (Accuracy y F1-Score) como la escalabilidad y tiempo de entrenamiento en datasets sintéticos y reales de diferente dimensionalidad.
 \\end{{abstract}}
 
 \\section{{Métricas de Precisión}}
@@ -158,7 +158,7 @@ A continuación se muestra el tiempo de convergencia del modelo evaluado en una 
 
 \\section{{Análisis del Manifold y Fronteras de Pareto}}
 
-La característica distintiva del RM-NSGA-II es el aprendizaje de una frontera de decisión basada en coeficientes de Fourier de longitud variable. El frente de Pareto refleja el compromiso entre la precisión del modelo y la complejidad intrínseca del mismo (medida mediante la longitud de arco y el número de armónicos).
+La característica distintiva del FM-NSGA-II es el aprendizaje de una frontera de decisión basada en coeficientes de Fourier de longitud variable. El frente de Pareto refleja el compromiso entre la precisión del modelo y la complejidad intrínseca del mismo (medida mediante la longitud de arco y el número de armónicos).
 
 \\begin{{figure}}[H]
     \\centering

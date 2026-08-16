@@ -39,7 +39,7 @@ CMAKE_CXX_COMPILER_AR:FILEPATH=/usr/bin/gcc-ar
 CMAKE_CXX_COMPILER_RANLIB:FILEPATH=/usr/bin/gcc-ranlib
 
 //Flags used by the CXX compiler during all build types.
-CMAKE_CXX_FLAGS:STRING=
+CMAKE_CXX_FLAGS:STRING=-O2
 
 //Flags used by the CXX compiler during DEBUG builds.
 CMAKE_CXX_FLAGS_DEBUG:STRING=-g
@@ -125,7 +125,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=rm_nsga2
+CMAKE_PROJECT_NAME:STATIC=fm_nsga2
 
 //Value Computed by CMake
 CMAKE_PROJECT_SPDX_LICENSE:STATIC=
@@ -223,13 +223,13 @@ OpenMP_gomp_LIBRARY:FILEPATH=/usr/lib/libgomp.so
 OpenMP_pthread_LIBRARY:FILEPATH=/usr/lib/libpthread.a
 
 //Value Computed by CMake
-rm_nsga2_BINARY_DIR:STATIC=/home/uwo/Projects/RM-NSGA-II/build
+fm_nsga2_BINARY_DIR:STATIC=/home/uwo/Projects/RM-NSGA-II/build
 
 //Value Computed by CMake
-rm_nsga2_IS_TOP_LEVEL:STATIC=ON
+fm_nsga2_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-rm_nsga2_SOURCE_DIR:STATIC=/home/uwo/Projects/RM-NSGA-II
+fm_nsga2_SOURCE_DIR:STATIC=/home/uwo/Projects/RM-NSGA-II
 
 
 ########################

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.16)  16 AUG 2026 12:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.16)  16 AUG 2026 12:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -485,12 +485,6 @@ Underfull \hbox (badness 1701) in paragraph at lines 78--78
 []\OT1/cmr/bx/n/12 Espacio de Op-ti-mi-za-ci^^Son Multi-
  []
 
-
-Underfull \hbox (badness 3039) in paragraph at lines 121--122
-[]\OT1/cmr/m/n/10 En con-jun-tos pu-ra-men-te li-nea-les (\OT1/cmr/m/it/10 Blob
-s\OT1/cmr/m/n/10 ), RM-
- []
-
 <../build/plot_benchmark.png, id=91, 1004.553pt x 354.123pt>
 File: ../build/plot_benchmark.png Graphic file (type png)
 <use ../build/plot_benchmark.png>
@@ -562,7 +556,7 @@ nts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
 b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/font
 s/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (5 pages, 530767 bytes).
+Output written on main.pdf (5 pages, 530760 bytes).
 PDF statistics:
  217 PDF objects out of 1000 (max. 8388607)
  170 compressed objects within 2 object streams

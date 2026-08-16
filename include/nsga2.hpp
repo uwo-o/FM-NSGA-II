@@ -15,7 +15,7 @@
 //         (último frente parcial: ordenar por crowding desc)
 //   4. Retornar frente de Pareto (F1 de la última generación)
 //
-// MULTI-CLASE: ver RMClassifier (one-vs-rest con K llamadas)
+// MULTI-CLASE: ver FMClassifier (one-vs-rest con K llamadas)
 // ============================================================
 #include <vector>
 #include <array>
@@ -345,11 +345,11 @@ private:
 };
 
 // ============================================================
-// RMClassifier — Wrapper multi-clase (one-vs-rest)
+// FMClassifier — Wrapper multi-clase (one-vs-rest)
 // ============================================================
-class RMClassifier {
+class FMClassifier {
 public:
-    RMClassifier(NSGAConfig cfg = {}) : cfg_(cfg) {}
+    FMClassifier(NSGAConfig cfg = {}) : cfg_(cfg) {}
 
     // Entrenamiento: corre NSGA-II por cada clase (one-vs-rest)
     // Las clases se procesan en paralelo con OpenMP.

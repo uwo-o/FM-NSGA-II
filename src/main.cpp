@@ -1,5 +1,5 @@
 // ============================================================
-// src/main.cpp — Demo rápido del clasificador RM-NSGA-II
+// src/main.cpp — Demo rápido del clasificador FM-NSGA-II
 // ============================================================
 #include <iostream>
 #include <string>
@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
     if (argc > 1) csv_path = argv[1];
 
     std::cout << "════════════════════════════════════════════════════\n";
-    std::cout << "  RM-NSGA-II Classifier\n";
+    std::cout << "  FM-NSGA-II Classifier\n";
     std::cout << "════════════════════════════════════════════════════\n\n";
 
     // ─── Cargar dataset ──────────────────────────────────────
@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
         data.name = csv_path;
     } catch (std::exception& e) {
         std::cerr << "Error cargando dataset: " << e.what() << "\n";
-        std::cerr << "Uso: ./rm_nsga2 <path/to/dataset.csv>\n";
+        std::cerr << "Uso: ./fm_nsga2 <path/to/dataset.csv>\n";
         return 1;
     }
     data.normalize();
@@ -54,11 +54,11 @@ int main(int argc, char* argv[]) {
     cfg.obj_cfg.lambda   = 0.2;   // baja penalización de complejidad
     cfg.obj_cfg.arc_baseline = 8.0;
 
-    // ─── Entrenar RMClassifier ─────────────────────────
+    // ─── Entrenar FMClassifier ─────────────────────────
     std::cout << "────────────────────────────────────────────────────\n";
-    std::cout << "Entrenando RM-NSGA-II Classifier...\n";
+    std::cout << "Entrenando FM-NSGA-II Classifier...\n";
     auto t0 = Clock::now();
-    RMClassifier clf(cfg);
+    FMClassifier clf(cfg);
     clf.fit(train);
     double nsga_ms = std::chrono::duration<double,std::milli>(Clock::now()-t0).count();
 
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
     std::cout << "\n────────────────────────────────────────────────────\n";
     std::cout << "RESULTADOS EN TEST SET\n";
     std::cout << "────────────────────────────────────────────────────\n";
-    print_report("RM-NSGA-II", acc_nsga, f1_nsga, nsga_ms);
+    print_report("FM-NSGA-II", acc_nsga, f1_nsga, nsga_ms);
 
     // ─── Baselines ───────────────────────────────────────────
     auto run_baseline = [&](IClassifier& bl) {

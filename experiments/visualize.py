@@ -60,7 +60,7 @@ def plot_2d_boundaries(dataset_path="data/moons_2d.csv"):
     n_cls = len(classes)
 
     fig, ax = plt.subplots(1, 1, figsize=(8, 6))
-    ax.set_title("RM-NSGA-II — Fronteras de decisión", fontsize=13)
+    ax.set_title("FM-NSGA-II — Fronteras de decisión", fontsize=13)
 
     # Puntos del dataset
     for k, cls in enumerate(classes):
@@ -95,7 +95,7 @@ def plot_benchmark_results(csv_path="benchmark_results.csv"):
     offset = np.linspace(-0.4, 0.4, len(classifiers), endpoint=True)
 
     fig, ax = plt.subplots(figsize=(14, 5))
-    ax.set_title("Comparación de Accuracy — RM-NSGA-II vs Baselines", fontsize=13)
+    ax.set_title("Comparación de Accuracy — FM-NSGA-II vs Baselines", fontsize=13)
 
     bars = []
     for ki, clf in enumerate(classifiers):

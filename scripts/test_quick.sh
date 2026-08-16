@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────
-# test_quick.sh — Test rápido: RM-NSGA-II en Two Moons 2D
+# test_quick.sh — Test rápido: FM-NSGA-II en Two Moons 2D
 # Uso: ./scripts/test_quick.sh  (desde la raíz del proyecto)
 # ─────────────────────────────────────────────────────────────────
 set -euo pipefail
@@ -10,12 +10,12 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PROJECT_DIR/build"
 
 echo "╔══════════════════════════════════════════════════════╗"
-echo "║         RM-NSGA-II — Test Rápido (Two Moons)        ║"
+echo "║         FM-NSGA-II — Test Rápido (Two Moons)        ║"
 echo "╚══════════════════════════════════════════════════════╝"
 echo ""
 
 # ── Verificar que el build existe ──────────────────────────────
-if [[ ! -f "$BUILD_DIR/rm_nsga2" ]]; then
+if [[ ! -f "$BUILD_DIR/fm_nsga2" ]]; then
     echo "⚠ Ejecutable no encontrado. Compilando..."
     cmake -S "$PROJECT_DIR" -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE=Release
     cmake --build "$BUILD_DIR" --parallel
@@ -30,10 +30,10 @@ if [[ ! -f "$BUILD_DIR/data/moons_2d.csv" ]]; then
 fi
 
 # ── Ejecutar test ──────────────────────────────────────────────
-echo "▶ Corriendo RM-NSGA-II en data/moons_2d.csv ..."
+echo "▶ Corriendo FM-NSGA-II en data/moons_2d.csv ..."
 echo ""
 cd "$BUILD_DIR"
-./rm_nsga2 data/moons_2d.csv 2>&1
+./fm_nsga2 data/moons_2d.csv 2>&1
 
 echo ""
 echo "✅ Test rápido completado."

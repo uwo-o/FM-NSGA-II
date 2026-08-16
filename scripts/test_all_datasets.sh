@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────
-# test_all_datasets.sh — Test RM-NSGA-II en todos los datasets
+# test_all_datasets.sh — Test FM-NSGA-II en todos los datasets
 # Uso: ./scripts/test_all_datasets.sh  (desde la raíz del proyecto)
 # ─────────────────────────────────────────────────────────────────
 set -euo pipefail
@@ -10,12 +10,12 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PROJECT_DIR/build"
 
 echo "╔══════════════════════════════════════════════════════╗"
-echo "║      RM-NSGA-II — Test en todos los datasets        ║"
+echo "║      FM-NSGA-II — Test en todos los datasets        ║"
 echo "╚══════════════════════════════════════════════════════╝"
 echo ""
 
 # ── Compilar si no existe ──────────────────────────────────────
-if [[ ! -f "$BUILD_DIR/rm_nsga2" ]]; then
+if [[ ! -f "$BUILD_DIR/fm_nsga2" ]]; then
     echo "⚠ Ejecutable no encontrado. Compilando..."
     cmake -S "$PROJECT_DIR" -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE=Release
     cmake --build "$BUILD_DIR" --parallel
@@ -55,7 +55,7 @@ for ds in "${DATASETS[@]}"; do
     echo "══════════════════════════════════════"
     echo "▶ Dataset: $ds"
     echo "══════════════════════════════════════"
-    if ./rm_nsga2 "$ds" 2>&1; then
+    if ./fm_nsga2 "$ds" 2>&1; then
         ((PASS++)) || true
     else
         echo "✗ FALLÓ en $ds"

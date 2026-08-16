@@ -53,7 +53,7 @@ Result evaluate_nsga2(const std::string& ds_name,
                       const Dataset& train, const Dataset& test,
                       const NSGAConfig& cfg) {
     auto t0 = Clock::now();
-    RMClassifier clf(cfg);
+    FMClassifier clf(cfg);
     clf.fit(train);
     double ms = std::chrono::duration<double,std::milli>(Clock::now()-t0).count();
 
@@ -62,7 +62,7 @@ Result evaluate_nsga2(const std::string& ds_name,
     for (auto& s : test.samples) truth.push_back(s.label);
 
     return {
-        ds_name, "RM-NSGA-II",
+        ds_name, "FM-NSGA-II",
         multiclass_accuracy(truth, preds),
         macro_f1(truth, preds, test.class_labels),
         ms
@@ -73,7 +73,7 @@ Result evaluate_nsga2(const std::string& ds_name,
 int main() {
     std::cout << "\n";
     std::cout << "╔══════════════════════════════════════════════════════════╗\n";
-    std::cout << "║        BENCHMARK: RM-NSGA-II vs Baselines          ║\n";
+    std::cout << "║        BENCHMARK: FM-NSGA-II vs Baselines          ║\n";
     std::cout << "╚══════════════════════════════════════════════════════════╝\n\n";
 
     // ─── Datasets (ajustar paths según build dir) ─────────────

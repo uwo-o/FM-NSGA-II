@@ -1,1 +1,1 @@
-/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/benchmark.dir/link.d CMakeFiles/benchmark.dir/experiments/benchmark.cpp.o -o benchmark  librm_nsga2_core.a /usr/lib/libgomp.so /usr/lib/libpthread.a
+/usr/bin/c++ -O2 -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/benchmark.dir/link.d CMakeFiles/benchmark.dir/experiments/benchmark.cpp.o -o benchmark  libfm_nsga2_core.a /usr/lib/libgomp.so /usr/lib/libpthread.a

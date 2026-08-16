@@ -1,0 +1,2 @@
+/usr/bin/ar qc libfm_nsga2_core.a CMakeFiles/fm_nsga2_core.dir/src/dataset.cpp.o CMakeFiles/fm_nsga2_core.dir/src/manifold.cpp.o CMakeFiles/fm_nsga2_core.dir/src/nsga2.cpp.o
+/usr/bin/ranlib libfm_nsga2_core.a

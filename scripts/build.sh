@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────────
-# build.sh — Compilar el proyecto RM-NSGA-II
+# build.sh — Compilar el proyecto FM-NSGA-II
 # Uso: ./scripts/build.sh [release|debug|asan]
 # ─────────────────────────────────────────────────────────────────
 set -euo pipefail
@@ -31,7 +31,7 @@ case "$MODE" in
               -DCMAKE_BUILD_TYPE=Debug \
               -DCMAKE_CXX_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer" \
               -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address,undefined" 2>&1
-        cmake --build "$BUILD_DIR" --target rm_nsga2_asan --parallel 2>&1
+        cmake --build "$BUILD_DIR" --target fm_nsga2_asan --parallel 2>&1
         ;;
     *)
         echo "Uso: $0 [release|debug|asan]"
@@ -41,4 +41,4 @@ esac
 
 echo ""
 echo "✅ Build OK — ejecutables en $BUILD_DIR/"
-ls -lh "$BUILD_DIR/rm_nsga2" "$BUILD_DIR/benchmark" 2>/dev/null || true
+ls -lh "$BUILD_DIR/fm_nsga2" "$BUILD_DIR/benchmark" 2>/dev/null || true

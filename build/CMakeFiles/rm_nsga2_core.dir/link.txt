@@ -1,2 +1,0 @@
-/usr/bin/ar qc librm_nsga2_core.a CMakeFiles/rm_nsga2_core.dir/src/dataset.cpp.o CMakeFiles/rm_nsga2_core.dir/src/manifold.cpp.o CMakeFiles/rm_nsga2_core.dir/src/nsga2.cpp.o
-/usr/bin/ranlib librm_nsga2_core.a

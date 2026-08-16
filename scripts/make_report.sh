@@ -9,7 +9,7 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 BUILD_DIR="$PROJECT_DIR/build"
 
 echo "╔══════════════════════════════════════════════════════╗"
-echo "║       Generador de Reporte RM-NSGA-II (LaTeX)       ║"
+echo "║       Generador de Reporte FM-NSGA-II (LaTeX)       ║"
 echo "╚══════════════════════════════════════════════════════╝"
 echo ""
 

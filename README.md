@@ -1,4 +1,4 @@
-# RM-NSGA-II Classifier
+# FM-NSGA-II Classifier
 
 Clasificador no-lineal multi-clase basado en **NSGA-II** con fronteras de decisión
 representadas como **curvas de Fourier paramétricas cerradas** en R^n.
@@ -31,7 +31,7 @@ rm-nsga2/
 │   ├── objectives.hpp     ← Funciones objetivo bi-objetivo
 │   ├── operators.hpp      ← Mutación ERC + cruzamiento GP-style
 │   ├── metrics.hpp        ← Accuracy, F1, macro-F1
-│   └── nsga2.hpp          ← Motor NSGA-II + RMClassifier (multi-clase)
+│   └── nsga2.hpp          ← Motor NSGA-II + FMClassifier (multi-clase)
 ├── baselines/
 │   ├── classifier_base.hpp ← Interfaz abstracta IClassifier
 │   ├── knn.hpp             ← k-NN euclídeo
@@ -66,7 +66,7 @@ python3 generate_datasets.py
 
 ### 2. Demo rápido (Two Moons)
 ```bash
-./rm_nsga2 data/moons_2d.csv
+./fm_nsga2 data/moons_2d.csv
 ```
 
 ### 3. Benchmark completo (todos los datasets)

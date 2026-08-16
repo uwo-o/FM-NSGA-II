@@ -1,8 +1,8 @@
-benchmark: \
+fm_nsga2: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o \
-  CMakeFiles/benchmark.dir/experiments/benchmark.cpp.o \
+  CMakeFiles/fm_nsga2.dir/src/main.cpp.o \
   libfm_nsga2_core.a \
   /usr/lib/libgomp.so \
   /usr/lib/libpthread.a \
@@ -44,7 +44,7 @@ benchmark: \
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o:
 
-CMakeFiles/benchmark.dir/experiments/benchmark.cpp.o:
+CMakeFiles/fm_nsga2.dir/src/main.cpp.o:
 
 libfm_nsga2_core.a:
 

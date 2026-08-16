@@ -1,11 +1,11 @@
 \begin{table*}[t]
 \centering
-\caption{Precisión global (Accuracy) en la batería de pruebas calculada a lo largo de 20 ejecuciones independientes. Se reporta la media y la desviación estándar ($\pm \sigma$) para exponer la naturaleza estocástica del RM-NSGA-II. Se evidencia cómo los modelos lineales colapsan en distribuciones complejas (Circles, Two Moons), mientras que el RM-NSGA-II logra mantener un rendimiento top-tier consistente, salvo frente al ruido extremo de la maldición de la dimensionalidad (Adversarial 52D) donde los Decision Trees toman ventaja por su Feature Selection inherente. El mejor desempeño medio por dataset se resalta en negrita.}
+\caption{Precisión global (Accuracy) en la batería de pruebas calculada a lo largo de 20 ejecuciones independientes. Se reporta la media y la desviación estándar ($\pm \sigma$) para exponer la naturaleza estocástica del FM-NSGA-II. Se evidencia cómo los modelos lineales colapsan en distribuciones complejas (Circles, Two Moons), mientras que el FM-NSGA-II logra mantener un rendimiento top-tier consistente, salvo frente al ruido extremo de la maldición de la dimensionalidad (Adversarial 52D) donde los Decision Trees toman ventaja por su Feature Selection inherente. El mejor desempeño medio por dataset se resalta en negrita.}
 \vspace{0.2cm}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{lccccccc}
 \toprule
-\textbf{Dataset} & \textbf{Decision Tree (depth=8)} & \textbf{Gaussian Naive Bayes} & \textbf{RM-NSGA-II} & \textbf{SVM-Linear (C=1)} & \textbf{SVM-RBF (C=1 $\gamma$=1.00)} & \textbf{k-NN (k=3)} & \textbf{k-NN (k=7)} \\
+\textbf{Dataset} & \textbf{Decision Tree (depth=8)} & \textbf{Gaussian Naive Bayes} & \textbf{FM-NSGA-II} & \textbf{SVM-Linear (C=1)} & \textbf{SVM-RBF (C=1 $\gamma$=1.00)} & \textbf{k-NN (k=3)} & \textbf{k-NN (k=7)} \\
 \midrule
 \textbf{Adversarial(52D)} & \textbf{0.9875} & 0.7500 & 0.3987 $\pm$ 0.0334 & 0.4113 $\pm$ 0.0172 & 0.4125 & 0.4250 & 0.4875 \\
 \textbf{Blobs (2D)} & \textbf{1.0000} & \textbf{1.0000} & 0.9981 $\pm$ 0.0061 & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} \\
@@ -24,12 +24,12 @@
 
 \begin{table*}[t]
 \centering
-\caption{Costo computacional de convergencia y tiempos de entrenamiento empírico (expresados en milisegundos $\pm \sigma$ tras 20 iteraciones). Al tratarse de un algoritmo heurístico poblacional (NSGA-II) que debe evaluar distancias proyectadas ortogonalmente a un colector paramétrico complejo, el RM-NSGA-II expone un orden de complejidad temporal manifiestamente superior frente a los clasificadores deterministas clásicos, logrando viabilidad únicamente a través de paralelismo asíncrono y mini-batching evolutivo.}
+\caption{Costo computacional de convergencia y tiempos de entrenamiento empírico (expresados en milisegundos $\pm \sigma$ tras 20 iteraciones). Al tratarse de un algoritmo heurístico poblacional (NSGA-II) que debe evaluar distancias proyectadas ortogonalmente a un colector paramétrico complejo, el FM-NSGA-II expone un orden de complejidad temporal manifiestamente superior frente a los clasificadores deterministas clásicos, logrando viabilidad únicamente a través de paralelismo asíncrono y mini-batching evolutivo.}
 \vspace{0.2cm}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{lrrrrrrr}
 \toprule
-\textbf{Dataset} & \textbf{Decision Tree (depth=8)} & \textbf{Gaussian Naive Bayes} & \textbf{RM-NSGA-II} & \textbf{SVM-Linear (C=1)} & \textbf{SVM-RBF (C=1 $\gamma$=1.00)} & \textbf{k-NN (k=3)} & \textbf{k-NN (k=7)} \\
+\textbf{Dataset} & \textbf{Decision Tree (depth=8)} & \textbf{Gaussian Naive Bayes} & \textbf{FM-NSGA-II} & \textbf{SVM-Linear (C=1)} & \textbf{SVM-RBF (C=1 $\gamma$=1.00)} & \textbf{k-NN (k=3)} & \textbf{k-NN (k=7)} \\
 \midrule
 \textbf{Adversarial(52D)} & 1143 $\pm$ 43 & 0 & 63136 $\pm$ 4337 & 762 $\pm$ 6 & 407 $\pm$ 24 & 0 & 0 \\
 \textbf{Blobs (2D)} & 11 & 0 & 5643 $\pm$ 495 & 10 $\pm$ 2 & 28 $\pm$ 6 & 0 & 0 \\
