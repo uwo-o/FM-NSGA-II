@@ -1,0 +1,200 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper, margin=0.75in}
+
+\title{\LARGE \bf
+RM-NSGA-II: A Non-Dominated Sorting Genetic Algorithm based on Fourier Manifolds for Non-Linear Classification
+}
+
+\author{Docencia / Investigación}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\begin{abstract}
+Este artículo describe la formulación matemática, diseño y optimización del \textbf{RM-NSGA-II}, un clasificador topológico fundamentado en la evolución de Variedades de Riemann paramétricas (aproximadas mediante series de Fourier). El modelo resuelve el problema de clasificación no lineal envolviendo distribuciones en el espacio $\mathbb{R}^D$ mediante fronteras continuas cerradas, cuya topología es optimizada estocásticamente utilizando el motor genético multi-objetivo NSGA-II. Se detallan formalmente la representación del colector, la formulación de la métrica de distancia de pertenencia, la función de costo de Navaja de Ockham paramétrica y la lógica de los operadores evolutivos. Se presentan optimizaciones de alto rendimiento y resultados experimentales que demuestran universalidad en problemas euclidianos y los límites teóricos del algoritmo frente a espacios topológicos fuertemente no-diferenciables (ajedrez) y ruidosos (maldición de la dimensionalidad).
+\end{abstract}
+
+\section{Introducción}
+La separación de clases en espacios no linealmente separables es abordada clásicamente mediante proyecciones a dimensiones superiores (ej. truco del kernel en Máquinas de Vectores de Soporte). El presente trabajo aborda el problema de forma inversa: en lugar de deformar el espacio para acomodar un hiperplano lineal, construimos un colector (manifold) paramétrico $M \subset \mathbb{R}^D$ de codimensión $D-1$ que se pliega intrincadamente para separar las clases en su espacio topológico nativo.
+
+Debido a que la parametrización de superficies altamente no convexas carece de una formulación diferencial analítica directa respecto a un error de clasificación discreto, el proceso de entrenamiento se formula como un problema de optimización combinatoria multi-objetivo resuelto mediante el \textbf{Non-Dominated Sorting Genetic Algorithm II (NSGA-II)} \cite{deb2002fast}.
+
+\section{Formulación Matemática del Modelo}
+
+\subsection{Representación del Colector (Fourier Manifold)}
+Definimos la frontera de decisión como una curva o hiper-superficie paramétrica cerrada $M$. Para garantizar continuidad y diferenciabilidad, parametrizamos $M$ utilizando una expansión de series de Fourier truncada.
+
+Para un espacio de características $\mathbb{R}^D$, la variedad se define mediante una aplicación continua $\mathbf{f}: [0, 2\pi) \to \mathbb{R}^D$, donde la coordenada en la dimensión $d \in \{1, \dots, D\}$ viene dada por:
+\begin{equation}
+    f_d(t) = a_{0,d} + \sum_{k=1}^{H} \left( a_{k,d} \cos(kt) + b_{k,d} \sin(kt) \right)
+\end{equation}
+donde:
+\begin{itemize}
+    \item $t \in [0, 2\pi)$ es el parámetro intrínseco de la curva.
+    \item $H \in \mathbb{N}$ es el número de armónicos (frecuencia máxima), que controla la complejidad oscilatoria de la curva.
+    \item $a_{0,d}$ representa el centroide de la variedad en la dimensión $d$.
+    \item $A, B \in \mathbb{R}^{H \times D}$ son las matrices de coeficientes que dictan la amplitud y fase topológica de la envoltura.
+\end{itemize}
+
+El genotipo de un individuo en la población de NSGA-II está representado enteramente por el vector de parámetros reales $\theta \in \mathbb{R}^{D \times 2H}$. Este vector constituye el cromosoma evolutivo, donde cada bloque de cuatro genes codifica un armónico de Fourier en el plano proyectado, como se ilustra esquemáticamente en la Figura \ref{fig:chromosome}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{../build/plot_chromosome.png}
+    \caption{Representación en memoria del vector paramétrico (Cromosoma) dentro del espacio de búsqueda del algoritmo genético. Cada gen es un valor en $\mathbb{R}$ mutado bajo distribuciones Gaussianas y Polinomiales para alterar gradualmente la curvatura topológica.}
+    \label{fig:chromosome}
+\end{figure}
+
+\subsection{Métrica de Distancia y Clasificación}
+La regla de decisión para un punto $\mathbf{x} \in \mathbb{R}^D$ requiere calcular la pertenencia topológica ("dentro" o "fuera" de $M$). Primero, calculamos la distancia euclidiana ortogonal mínima entre el punto y la curva:
+\begin{equation}
+    d_{min}(\mathbf{x}, M) = \min_{t \in [0, 2\pi)} \left\| \mathbf{x} - \mathbf{f}(t) \right\|_2
+\end{equation}
+
+Computacionalmente, minimizamos esta función de distancia discretizando el espacio paramétrico $t$ en $N_p$ puntos equidistantes.
+
+Para determinar si el punto está encerrado por el colector discreto (polígono), se emplea el algoritmo topológico de Ray-Casting. Si el rayo proyectado desde $\mathbf{x}$ interseca $M$ un número impar de veces, $\mathbf{x}$ yace dentro del conjunto acotado.
+Definimos la \textbf{distancia con signo} como:
+\begin{equation}
+    D_S(\mathbf{x}, M) = \begin{cases} 
+      -d_{min}(\mathbf{x}, M) & \text{si } \mathbf{x} \text{ está dentro de } M \\
+      +d_{min}(\mathbf{x}, M) & \text{si } \mathbf{x} \text{ está fuera de } M
+   \end{cases}
+\end{equation}
+
+\subsection{Espacio de Optimización Multi-Objetivo}
+Un clasificador paramétrico de Fourier de $H$ suficientemente alto puede tejer una curva arbitraria capaz de envolver cada punto individual (sobreajuste severo). Para penalizar esta topología, usamos la optimización de Pareto de NSGA-II minimizando dos objetivos simultáneos: $\mathbf{O}(\mathcal{G}) = [O_1(\mathcal{G}), O_2(\mathcal{G})]^T$.
+
+\textbf{Objetivo 1: Error Empírico ($O_1$)}
+Se evalúa la fracción de ejemplos mal clasificados. Dada la etiqueta binaria $y_i \in \{+1, -1\}$ (donde $+1$ es la clase interior):
+\begin{equation}
+    O_1 = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I} \left[ y_i \neq \text{sign}(-D_S(\mathbf{x}_i, M)) \right]
+\end{equation}
+
+\textbf{Objetivo 2: Complejidad Topológica ($O_2$)}
+La Navaja de Ockham se introduce penalizando matemáticamente la oscilación de la curva (calculando la integral de línea de la longitud de arco $L$) y la cardinalidad de la base trigonométrica $H$:
+\begin{equation}
+    L(M) = \int_{0}^{2\pi} \left\| \mathbf{f}'(t) \right\|_2 dt \approx \sum_{j=1}^{N_p} \left\| \mathbf{f}(t_j) - \mathbf{f}(t_{j-1}) \right\|_2
+\end{equation}
+\begin{equation}
+    O_2 = \lambda \min\left( \frac{L(M)}{L_{base}}, 1 \right) + (1-\lambda) \min\left( \frac{H}{H_{max}}, 1 \right)
+\end{equation}
+donde $\lambda \in [0,1]$ balancea el castigo espacial frente al castigo espectral, previniendo superficies rugosas.
+
+\subsection{Operadores Genéticos de Variación}
+\begin{itemize}
+    \item \textbf{Crossover:} Combina matemáticamente las matrices $A$ y $B$ de dos genotipos padres, realizando un cruce de sub-bandas de frecuencia o cruce uniforme de coeficientes.
+    \item \textbf{Mutación Estocástica:} Perturba aleatoriamente los coeficientes aplicando ruido Gaussiano: $a_{k,d} \leftarrow a_{k,d} + \mathcal{N}(0, \sigma^2)$, permitiendo a la curva vibrar y ajustarse topológicamente al gradiente de la nube de puntos.
+    \item \textbf{Mutación Espectral:} Añade o recorta armónicos ($H \leftarrow H \pm 1$), inicializando nuevos niveles de $A$ y $B$ cerca de $0$, expandiendo el espacio de dimensionalidad paramétrica dinámicamente.
+\end{itemize}
+
+\subsection{Estrategia One-vs-Rest (Multiclase)}
+Para resolver un problema con $K$ clases, el sistema instancia $K$ poblaciones independientes del RM-NSGA-II. Cada población modela un colector $M_k$ envolviendo exclusivamente la clase $k$. Durante inferencia, un dato $\mathbf{x}^*$ es proyectado contra todos los colectores, decidiendo a favor del que presente mayor penetración topológica (menor distancia firmada):
+\begin{equation}
+    \hat{y} = \arg\min_{k \in \{1,\dots,K\}} D_S(\mathbf{x}^*, M_k)
+\end{equation}
+
+\section{Implementación y Optimizaciones}
+La naturaleza de la ecuación $D_S(\mathbf{x}, M)$ implica evaluar funciones trigonométricas repetitivamente. Las soluciones aplicadas fueron:
+\begin{enumerate}
+    \item \textbf{Tablas de Búsqueda Trigonométrica (\textit{Caching}):} Pre-cálculo masivo en $O(1)$ de todos los armónicos posibles para el domino $t \in [0, 2\pi)$.
+    \item \textbf{Paralelismo de Memoria (OpenMP):} La evaluación de $O_1$ sobre el vector de entrenamiento es inherentemente paralela.
+    \item \textbf{Mini-Batching Estocástico:} Se aproxima $O_1$ utilizando un subconjunto aleatorio del $\approx 30\%$ de $\mathbf{x}_i$ en las primeras generaciones, acelerando radicalmente las mutaciones tempranas y actuando como un regularizador implícito.
+\end{enumerate}
+
+\subsection{Tiempos de Ejecución y Universalidad}
+La conjunción de \textit{Mini-Batching} y \textit{Caching} deprimió los tiempos de entrenamiento. Para \textit{Breast Cancer (30D)}, el algoritmo tardó \textbf{$\sim$41.3 segundos}, logrando un \textit{Accuracy} de \textbf{93.8\%}. La Figura \ref{fig:time} muestra la escalabilidad temporal frente a los demás baselines. 
+
+En conjuntos puramente lineales (\textit{Blobs}), RM-NSGA-II imitó la frontera logrando un perfecto \textbf{100\%}, confirmando que el motor evolutivo no colapsa ni penaliza estructuras subyacentes simples (prueba de universalidad). El rendimiento consolidado de las métricas F1 se expone en la Figura \ref{fig:benchmark}.
+
+\begin{figure*}[t!]
+    \centering
+    \includegraphics[width=\linewidth]{../build/plot_benchmark.png}
+    \caption{Resultados del benchmark global (Accuracy) en todos los datasets. Se resalta en verde sólido el rendimiento de la variedad propuesta (RM-NSGA-II) contrastado contra una paleta translúcida para los algoritmos deterministas clásicos. La gráfica evidencia la robustez geométrica del colector estocástico frente a distribuciones no lineales, donde algoritmos puramente lineales o hiperplanos simples sufren colapsos drásticos (ej. \textit{Circles}).}
+    \label{fig:benchmark}
+\end{figure*}
+
+\begin{figure*}[t!]
+    \centering
+    \includegraphics[width=\linewidth]{../build/plot_time.png}
+    \caption{Tiempos de ejecución requeridos para la convergencia en escala logarítmica. A pesar de que la dinámica evolpoblacional exige evaluar cientos de variaciones del colector, la inyección matemática del \textit{caching} de funciones seno/coseno junto al muestreo aleatorio del 30\% del espacio de entrenamiento (\textit{Mini-Batching}) amortigua el cuello de botella asintótico, estabilizando los tiempos en umbrales tolerables.}
+    \label{fig:time}
+\end{figure*}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{../build/plot_dataset.png}
+    \caption{Muestra representativa de las fronteras topológicas 2D proyectadas. Se observa el comportamiento del algoritmo \textit{One-vs-Rest} tejiendo iterativamente colectores de Fourier cerrados alrededor de las nubes de puntos de cada clase. Las superficies evaden elegantemente traslapes no-lineales, encapsulando las distribuciones (\textit{Moons}) sin disrumpir el espacio exterior, una proeza imposible para proyectores lineales convencionales.}
+    \label{fig:dataset}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{../build/plot_pareto.png}
+    \caption{Evolución del frente estocástico de Pareto en el paso terminal de NSGA-II. La curva de no-dominancia ilustra visualmente el postulado de la Navaja de Ockham paramétrica: el algoritmo balancea implacablemente individuos que priorizan una tasa de error mínima (eje X) frente a individuos que reducen el sobreajuste acortando la longitud de arco y descartando armónicos excesivos (eje Y).}
+    \label{fig:pareto}
+\end{figure}
+
+\section{Evaluación Experimental y Límites Teóricos}
+Se enfrentó el modelo paramétrico a datasets imposibles para descubrir debilidades formales del algoritmo evolutivo frente a métodos euclidianos ($k$-NN) e hiperplanos de kernel (SVM). La Tabla \ref{tab:accuracy} consolida los resultados cuantitativos de predicción, mientras que la Tabla \ref{tab:time} expone de manera transparente la asimetría computacional, reflejando el costo inherente de la evolución paramétrica frente a los modelos deterministas.
+
+\input{tables.tex}
+
+\subsection{Limitación 1: Paisajes Evolutivos Engañosos (Chessboard)}
+El espacio \textit{Chessboard} (XOR 4x4) expone un colapso en la mutación gaussiana. Aunque una serie de Fourier libre de $H=50$ armónicos posee expresividad suficiente para dibujar el tablero, la alineación matemática de la fase de ondas de muy alta frecuencia genera un \textbf{rugged landscape} evolutivo (paisaje escabroso). La perturbación en fase deforma toda la cuadrícula, por lo que la función de fitness no provee un gradiente uniforme hacia el óptimo; consecuentemente, RM-NSGA-II converge pobremente ($\sim$55\% Accuracy). 
+
+\subsection{Limitación 2: La Maldición de Dimensionalidad}
+Al probar el algoritmo en \textit{Adversarial Noise (52D)} —círculos 2D inmersos en 50 ejes de ruido uniforme—, todos los modelos de distancias isotrópicas ($k$-NN, SVM, y RM-NSGA-II) fracasaron rotundamente ($\sim$45\% Accuracy). La formulación euclidiana estricta de $d_{min}(\mathbf{x}, M)$ en $\mathbb{R}^{52}$ fuerza que todas las proyecciones tiendan a la misma magnitud, perdiendo la geometría de las dos dimensiones útiles. Solo los Árboles de Decisión triunfaron matemáticamente, ya que sus particiones axiales actúan como \textit{Feature Selection} asintótico estricto.
+
+\section{Discusión y Utilidad Práctica}
+A pesar de las vulnerabilidades expuestas frente al ruido dimensional masivo y la oscilación hiper-frecuente, el \textbf{RM-NSGA-II} posee propiedades matemáticas inherentes que lo dotan de una utilidad crítica en dominios donde los algoritmos estándar del estado del arte (como Deep Learning o Random Forests) fracasan conceptualmente:
+
+\begin{enumerate}
+    \item \textbf{Interpretabilidad Analítica Estricta (White-Box):} A diferencia de las Redes Neuronales o SVMs con Kernels RBF, cuyas fronteras de decisión operan como cajas negras algebraicas, el RM-NSGA-II destila una fórmula paramétrica explícita (una Serie de Fourier) para la frontera. Esta trazabilidad matemática es un requisito ineludible en contextos críticos auditables, como diagnósticos médicos y sistemas financieros regulados.
+    \item \textbf{Extracción Topológica de Contornos (Shape Analysis):} El algoritmo no se limita a trazar un hiperplano divisorio bidireccional; en su lugar, \textit{descubre el volumen geométrico} de las distribuciones. Al tejer variedades cerradas, el modelo permite realizar extracción activa de contornos, una propiedad invaluable en Visión Computacional e Imágenes Médicas (ej. segmentación automática de tumores continuos).
+    \item \textbf{Detección Intrínseca de Anomalías (Outlier Rejection):} Las SVMs lineales y los Árboles de Decisión dividen el espacio hasta el infinito, clasificando forzosamente cualquier punto distante dentro de una clase conocida. La estrategia del RM-NSGA-II de encerrar localmente las nubes de puntos en colectores cerrados implica que el resto del espacio euclidiano infinito es catalogado naturalmente como espacio exterior. Cualquier dato extremo será evaluado con una distancia topológica alta, dotando al algoritmo de capacidades nativas de Detección de Anomalías.
+    \item \textbf{Inmunidad al Desbalance Extremo de Clases:} En datasets altamente asimétricos, los hiperplanos convencionales tienden a ser "empujados" por la densidad masiva de la clase mayoritaria. Al utilizar arquitecturas independientes \textit{One-vs-Rest}, el RM-NSGA-II encapsula geométricamente a la clase minoritaria sin que el volumen o la varianza de la clase mayoritaria influyan en los coeficientes topológicos de la variedad menor.
+\end{enumerate}
+
+\subsection{Ejemplo Práctico: Extracción de la Ecuación Clasificadora}
+Para ilustrar la principal ventaja analítica del algoritmo (interpretabilidad *White-Box*), extrajimos la variedad topológica real evolucionada por el RM-NSGA-II para la Clase 0 del dataset \textit{Two Moons} utilizando únicamente $H=2$ armónicos. Tras el entrenamiento, el sistema entregó de forma determinista la siguiente matriz paramétrica óptima codificada en el cromosoma ganador:
+
+\begin{gather}
+\mathbf{a}_0 = \begin{bmatrix} 0.0638 \\ 0.6301 \end{bmatrix}, \quad
+A = \begin{bmatrix} 0.4941 & 0.4433 \\ 0.2347 & -0.0034 \end{bmatrix} \\
+B = \begin{bmatrix} 0.4635 & 0.4520 \\ -0.3160 & -0.3173 \end{bmatrix}
+\end{gather}
+
+A diferencia de un modelo de Deep Learning, donde el conocimiento está distribuido irrecuperablemente en miles de pesos sinápticos, aquí podemos desarrollar la frontera topológica que envuelve a la "luna inferior" como un par de ecuaciones paramétricas triviales para cualquier parámetro $t \in [0, 2\pi]$:
+
+\begin{align}
+x(t) &= 0.0638 + 0.4941 \cos(t) + 0.4635 \sin(t) \nonumber \\
+     &\quad + 0.4433 \cos(2t) + 0.4520 \sin(2t) \\
+y(t) &= 0.6301 + 0.2347 \cos(t) - 0.3160 \sin(t) \nonumber \\
+     &\quad - 0.0034 \cos(2t) - 0.3173 \sin(2t)
+\end{align}
+
+Esta es la forma matemática exacta de la "regla" aprendida. Para clasificar un paciente clínico o una transacción financiera $\mathbf{p} = (x_p, y_p)$, un auditor humano o un sistema de verificación estático simplemente requiere evaluar la distancia mínima desde $\mathbf{p}$ hacia la curva cerrada trazada por $(x(t), y(t))$ y verificar si el punto yace en su interior topológico. Esta extracción garantiza un sistema de decisión 100\% predecible, determinista y matemáticamente demostrable frente a normativas regulatorias.
+
+\section{Conclusión}
+El \textbf{RM-NSGA-II} demuestra que la clasificación multiclase se puede resolver mediante evolución paramétrica de superficies topológicas cerradas minimizando el arco ponderado como penalización L1 implícita. Las debilidades teóricas expuestas en los \textit{stress tests} confirman matemáticamente el Teorema \textit{No Free Lunch}, demostrando la incapacidad de la variación genética para modelar alineación de fases puras (XOR hiper-frecuente) y validando la necesidad de hibridar métricas euclidianas con tensores diagonales de peso cuando $\mathbb{R}^D$ está severamente ruidoso.
+
+\begin{thebibliography}{99}
+\bibitem{deb2002fast}
+K. Deb, A. Pratap, S. Agarwal, and T. Meyarivan, ``A fast and elitist multiobjective genetic algorithm: NSGA-II,'' \textit{IEEE Transactions on Evolutionary Computation}, vol. 6, no. 2, pp. 182-197, 2002.
+\end{thebibliography}
+
+\end{document}
