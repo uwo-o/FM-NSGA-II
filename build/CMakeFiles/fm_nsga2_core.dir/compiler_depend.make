@@ -563,6 +563,7 @@ CMakeFiles/fm_nsga2_core.dir/src/manifold.cpp.o: /home/uwo/Projects/RM-NSGA-II/s
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdint.h
 
 CMakeFiles/fm_nsga2_core.dir/src/nsga2.cpp.o: /home/uwo/Projects/RM-NSGA-II/src/nsga2.cpp \
+  /home/uwo/Projects/RM-NSGA-II/include/angular_manifold.hpp \
   /home/uwo/Projects/RM-NSGA-II/include/dataset.hpp \
   /home/uwo/Projects/RM-NSGA-II/include/manifold.hpp \
   /home/uwo/Projects/RM-NSGA-II/include/nsga2.hpp \
@@ -1470,6 +1471,8 @@ CMakeFiles/fm_nsga2_core.dir/src/nsga2.cpp.o: /home/uwo/Projects/RM-NSGA-II/src/
 /usr/include/c++/16/bits/erase_if.h:
 
 /usr/include/c++/16/tr1/gamma.tcc:
+
+/home/uwo/Projects/RM-NSGA-II/include/angular_manifold.hpp:
 
 /usr/include/c++/16/tr1/legendre_function.tcc:
 

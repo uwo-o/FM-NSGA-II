@@ -229,6 +229,7 @@ CMakeFiles/benchmark.dir/experiments/benchmark.cpp.o: \
  /home/uwo/Projects/RM-NSGA-II/include/manifold.hpp \
  /home/uwo/Projects/RM-NSGA-II/include/objectives.hpp \
  /home/uwo/Projects/RM-NSGA-II/include/operators.hpp \
+ /home/uwo/Projects/RM-NSGA-II/include/angular_manifold.hpp \
  /home/uwo/Projects/RM-NSGA-II/include/metrics.hpp \
  /home/uwo/Projects/RM-NSGA-II/baselines/knn.hpp /usr/include/c++/16/map \
  /usr/include/c++/16/bits/stl_map.h \

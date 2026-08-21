@@ -216,4 +216,5 @@ CMakeFiles/fm_nsga2_core.dir/src/nsga2.cpp.o: \
  /usr/include/c++/16/bits/fstream.tcc /usr/include/c++/16/set \
  /usr/include/c++/16/bits/stl_tree.h /usr/include/c++/16/bits/stl_set.h \
  /usr/include/c++/16/bits/stl_multiset.h \
- /home/uwo/Projects/RM-NSGA-II/include/operators.hpp
+ /home/uwo/Projects/RM-NSGA-II/include/operators.hpp \
+ /home/uwo/Projects/RM-NSGA-II/include/angular_manifold.hpp
