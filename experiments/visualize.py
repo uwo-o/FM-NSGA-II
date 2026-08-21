@@ -104,9 +104,15 @@ def plot_benchmark_results(csv_path="benchmark_results.csv"):
             row = df[(df["dataset"] == ds) & (df["classifier"] == clf)]
             accs.append(row["accuracy"].values[0] if len(row) else 0.0)
         CUSTOM_PALETTE = ["#4A90E2", "#9013FE", "#F5A623", "#D0021B", "#BD10E0", "#50E3C2", "#8B572A"]
-        is_ours = "NSGA" in clf
-        color = "limegreen" if is_ours else CUSTOM_PALETTE[ki % len(CUSTOM_PALETTE)]
-        alpha_val = 1.0 if is_ours else 0.35
+        if "Fourier" in clf:
+            color = "limegreen"
+            alpha_val = 1.0
+        elif "Angular" in clf:
+            color = "deepskyblue"
+            alpha_val = 1.0
+        else:
+            color = CUSTOM_PALETTE[ki % len(CUSTOM_PALETTE)]
+            alpha_val = 0.35
         b = ax.bar(x + offset[ki], accs, width, label=clf[:20],
                    color=color, alpha=alpha_val, edgecolor='white')
         bars.append(b)
@@ -148,9 +154,15 @@ def plot_time_results(csv_path="benchmark_results.csv"):
             # Evitar log(0) sumando 1ms
             times.append(max(t, 1.0))
         CUSTOM_PALETTE = ["#4A90E2", "#9013FE", "#F5A623", "#D0021B", "#BD10E0", "#50E3C2", "#8B572A"]
-        is_ours = "NSGA" in clf
-        color = "limegreen" if is_ours else CUSTOM_PALETTE[ki % len(CUSTOM_PALETTE)]
-        alpha_val = 1.0 if is_ours else 0.35
+        if "Fourier" in clf:
+            color = "limegreen"
+            alpha_val = 1.0
+        elif "Angular" in clf:
+            color = "deepskyblue"
+            alpha_val = 1.0
+        else:
+            color = CUSTOM_PALETTE[ki % len(CUSTOM_PALETTE)]
+            alpha_val = 0.35
         ax.bar(x + offset[ki], times, width, label=clf[:20],
                color=color, alpha=alpha_val, edgecolor='white')
 

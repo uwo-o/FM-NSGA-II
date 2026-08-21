@@ -36,14 +36,15 @@
 namespace nsga2 {
 
 // ─── Individual ──────────────────────────────────────────────
+template <typename ManifoldType>
 struct Individual {
-    FourierManifold manifold;
+    ManifoldType manifold;
     std::array<double, 2> obj = {1.0, 1.0}; // [error, complexity]
     int    rank     = 0;
     double crowding = 0.0;
 
     // Dominancia estricta (minimización de ambos objetivos)
-    bool dominates(const Individual& o) const {
+    bool dominates(const Individual<ManifoldType>& o) const {
         return (obj[0] <= o.obj[0] && obj[1] <= o.obj[1]) &&
                (obj[0] <  o.obj[0] || obj[1] <  o.obj[1]);
     }
@@ -65,15 +66,16 @@ struct NSGAConfig {
 };
 
 // ─── Motor NSGA-II ────────────────────────────────────────────
+template <typename ManifoldType>
 class NSGA2 {
 public:
-    NSGA2(const NSGAConfig& cfg, ObjFn obj_fn, int dim, int dataset_size,
+    NSGA2(const NSGAConfig& cfg, ObjFn<ManifoldType> obj_fn, int dim, int dataset_size,
           std::vector<double> center_hint = {})
         : cfg_(cfg), obj_fn_(obj_fn), dim_(dim), dataset_size_(dataset_size),
           center_hint_(std::move(center_hint)) {}
 
     // Ejecuta el algoritmo y retorna el frente de Pareto
-    std::vector<Individual> run() {
+    std::vector<Individual<ManifoldType>> run() {
         auto t0 = std::chrono::steady_clock::now();
 
         std::vector<int> empty_idx;
@@ -88,7 +90,7 @@ public:
             return batch_idx;
         };
 
-        std::vector<Individual> pop;
+        std::vector<Individual<ManifoldType>> pop;
         init_population(pop);
         evaluate(pop, get_indices(0));
         fast_sort_and_crowd(pop);
@@ -109,7 +111,7 @@ public:
             evaluate(offspring, current_indices);
 
             // R = P ∪ Q
-            std::vector<Individual> combined = pop;
+            std::vector<Individual<ManifoldType>> combined = pop;
             combined.insert(combined.end(), offspring.begin(), offspring.end());
 
             fast_sort_and_crowd(combined);
@@ -118,7 +120,7 @@ public:
             pop.clear();
             pop.reserve(cfg_.pop_size);
             std::stable_sort(combined.begin(), combined.end(),
-                [](const Individual& a, const Individual& b){
+                [](const Individual<ManifoldType>& a, const Individual<ManifoldType>& b){
                     if (a.rank != b.rank) return a.rank < b.rank;
                     return a.crowding > b.crowding;
                 });
@@ -165,18 +167,18 @@ public:
         }
 
         pareto_ = pareto_front(pop);
-        return pareto_;
+        return pop;
     }
 
     // Individuo con mínimo error del frente de Pareto
-    Individual best_accuracy() const {
+    Individual<ManifoldType> best_accuracy() const {
         assert(!pareto_.empty());
         return *std::min_element(pareto_.begin(), pareto_.end(),
-            [](const Individual& a, const Individual& b){ return a.obj[0] < b.obj[0]; });
+            [](const Individual<ManifoldType>& a, const Individual<ManifoldType>& b){ return a.obj[0] < b.obj[0]; });
     }
 
     // Punto de codo: mínima suma normalizada de los dos objetivos
-    Individual knee_point() const {
+    Individual<ManifoldType> knee_point() const {
         assert(!pareto_.empty());
         double e_max = 0, c_max = 0;
         for (auto& ind : pareto_) {
@@ -184,29 +186,29 @@ public:
             c_max = std::max(c_max, ind.obj[1]);
         }
         return *std::min_element(pareto_.begin(), pareto_.end(),
-            [&](const Individual& a, const Individual& b){
+            [&](const Individual<ManifoldType>& a, const Individual<ManifoldType>& b){
                 double sa = a.obj[0]/e_max + a.obj[1]/c_max;
                 double sb = b.obj[0]/e_max + b.obj[1]/c_max;
                 return sa < sb;
             });
     }
 
-    const std::vector<Individual>& pareto_front_cached() const { return pareto_; }
+    const std::vector<Individual<ManifoldType>>& pareto_front_cached() const { return pareto_; }
 
 private:
     NSGAConfig cfg_;
-    ObjFn      obj_fn_;
+    ObjFn<ManifoldType>      obj_fn_;
     int        dim_;
     int        dataset_size_;
     std::vector<double>     center_hint_; // centroide de clase positiva
-    std::vector<Individual> pareto_;
+    std::vector<Individual<ManifoldType>> pareto_;
 
     // ─── Inicialización con hint de centro ────────────────────────
-    void init_population(std::vector<Individual>& pop) {
+    void init_population(std::vector<Individual<ManifoldType>>& pop) {
         pop.resize(cfg_.pop_size);
         for (auto& ind : pop) {
             int n_harm = rand_int(cfg_.min_harmonics, cfg_.max_harmonics + 1);
-            ind.manifold = FourierManifold(dim_, n_harm);
+            ind.manifold = ManifoldType(dim_, n_harm);
             ind.manifold.randomize();
             // Si hay hint de centro, inicializar cerca del centroide positivo
             if (!center_hint_.empty())
@@ -215,7 +217,7 @@ private:
     }
 
     // ─── Evaluación (paralela con OpenMP) ────────────────────
-    void evaluate(std::vector<Individual>& pop, const std::vector<int>& indices) {
+    void evaluate(std::vector<Individual<ManifoldType>>& pop, const std::vector<int>& indices) {
 #ifdef _OPENMP
         #pragma omp parallel for schedule(static)
 #endif
@@ -226,7 +228,7 @@ private:
 
     // ─── Fast Non-Dominated Sort ──────────────────────────────
     // Asigna rank y crowding a todos los individuos en-lugar
-    void fast_sort_and_crowd(std::vector<Individual>& pop) {
+    void fast_sort_and_crowd(std::vector<Individual<ManifoldType>>& pop) {
         int n = (int)pop.size();
         std::vector<int> dom_count(n, 0);
         std::vector<std::vector<int>> dom_set(n);
@@ -302,7 +304,7 @@ private:
 
     }
 
-    void assign_crowding(std::vector<Individual>& pop, const std::vector<int>& front) {
+    void assign_crowding(std::vector<Individual<ManifoldType>>& pop, const std::vector<int>& front) {
         int sz = (int)front.size();
         if (sz <= 2) {
             for (int i : front) pop[i].crowding = std::numeric_limits<double>::max();
@@ -327,7 +329,7 @@ private:
     }
 
     // ─── Selección por torneo binario ─────────────────────────
-    const Individual& tournament(const std::vector<Individual>& pop) {
+    const Individual<ManifoldType>& tournament(const std::vector<Individual<ManifoldType>>& pop) {
         int a = rand_int(0, (int)pop.size());
         int b = rand_int(0, (int)pop.size());
         const auto& ia = pop[a]; const auto& ib = pop[b];
@@ -337,8 +339,8 @@ private:
     }
 
     // ─── Generación de offspring ──────────────────────────────
-    std::vector<Individual> make_offspring(const std::vector<Individual>& pop) {
-        std::vector<Individual> offspring(cfg_.pop_size);
+    std::vector<Individual<ManifoldType>> make_offspring(const std::vector<Individual<ManifoldType>>& pop) {
+        std::vector<Individual<ManifoldType>> offspring(cfg_.pop_size);
 
 #ifdef _OPENMP
         #pragma omp parallel for schedule(dynamic, 2)
@@ -347,7 +349,7 @@ private:
             const auto& p1 = tournament(pop);
             const auto& p2 = tournament(pop);
 
-            FourierManifold m1, m2;
+            ManifoldType m1, m2;
             if (rand_bool(cfg_.p_cross)) {
                 auto [c1, c2] = crossover(p1.manifold, p2.manifold, cfg_.op_cfg);
                 m1 = std::move(c1);
@@ -370,8 +372,8 @@ private:
     }
 
     // ─── Frente de Pareto de la población ─────────────────────
-    std::vector<Individual> pareto_front(const std::vector<Individual>& pop) {
-        std::vector<Individual> front;
+    std::vector<Individual<ManifoldType>> pareto_front(const std::vector<Individual<ManifoldType>>& pop) {
+        std::vector<Individual<ManifoldType>> front;
         for (auto& ind : pop)
             if (ind.rank == 1) front.push_back(ind);
         return front;
@@ -381,9 +383,10 @@ private:
 // ============================================================
 // FMClassifier — Wrapper multi-clase (one-vs-rest)
 // ============================================================
-class FMClassifier {
+template <typename ManifoldType>
+class Classifier {
 public:
-    FMClassifier(NSGAConfig cfg = {}) : cfg_(cfg) {}
+    Classifier(NSGAConfig cfg = {}) : cfg_(cfg) {}
 
     // Entrenamiento: corre NSGA-II por cada clase (one-vs-rest)
     // Las clases se procesan en paralelo con OpenMP.
@@ -394,6 +397,7 @@ public:
 
         int K = n_classes_;
         manifolds_.resize(K);
+        fronts_.resize(K);
 
         // Vectores de trabajo por clase (precalcular fuera del parallel)
         std::vector<Dataset>          binaries(K);
@@ -422,11 +426,12 @@ public:
                 std::cout << "\n[NSGA-II] Clase " << cls << " vs. resto...\n";
             }
 
-            auto obj_fn = make_objective(binaries[ki], cfg_.obj_cfg);
-            NSGA2 engine(cfg_, obj_fn, dim_, binaries[ki].size(), hints[ki]);
+            auto obj_fn = make_objective<ManifoldType>(binaries[ki], cfg_.obj_cfg);
+            NSGA2<ManifoldType> engine(cfg_, obj_fn, dim_, binaries[ki].size(), hints[ki]);
             auto front = engine.run();
             auto best  = engine.best_accuracy();
             manifolds_[ki] = best.manifold;
+            fronts_[ki] = front;
 
             if (cfg_.verbose) {
                 std::lock_guard<std::mutex> lk(cout_mtx);
@@ -462,14 +467,17 @@ public:
         return preds;
     }
 
-    const std::vector<FourierManifold>& manifolds() const { return manifolds_; }
-    const std::vector<int>& labels()                const { return class_labels_; }
+    const std::vector<ManifoldType>& manifolds() const { return manifolds_; }
+    const std::vector<std::vector<Individual<ManifoldType>>>& fronts() const { return fronts_; }
+    const std::vector<int>& labels() const { return class_labels_; }
 
 private:
     NSGAConfig cfg_;
-    int dim_ = 0, n_classes_ = 0;
-    std::vector<int>             class_labels_;
-    std::vector<FourierManifold> manifolds_;
+    int n_classes_;
+    int dim_;
+    std::vector<int> class_labels_;
+    std::vector<ManifoldType> manifolds_;
+    std::vector<std::vector<Individual<ManifoldType>>> fronts_;
 };
 
 } // namespace nsga2

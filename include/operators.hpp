@@ -19,6 +19,7 @@
 // ============================================================
 #include <cassert>
 #include "manifold.hpp"
+#include "angular_manifold.hpp"
 
 namespace nsga2 {
 
@@ -135,6 +136,104 @@ crossover(const FourierManifold& p1, const FourierManifold& p2,
         c1.w[i] = alpha_w * p1.w[i] + (1.0 - alpha_w) * p2.w[i];
         c2.w[i] = (1.0 - alpha_w) * p1.w[i] + alpha_w * p2.w[i];
     }
+
+    assert(c1.valid());
+    assert(c2.valid());
+    return {c1, c2};
+}
+
+// ─── Operadores para AngularManifold ─────────────────────────
+
+inline AngularManifold mutate(AngularManifold m, const OperatorConfig& cfg = {}) {
+    assert(m.valid());
+
+    for (auto& c : m.coefs) {
+        if (rand_bool(cfg.p_coef))
+            c = rand_double(-AngularManifold::AMP_MAX, AngularManifold::AMP_MAX);
+    }
+    // a_0 usually > 0
+    if (m.coefs[0] < 0) m.coefs[0] = std::abs(m.coefs[0]);
+
+    for (auto& ci : m.center)
+        if (rand_bool(cfg.p_coef))
+            ci = std::clamp(ci + rand_normal(0.0, cfg.center_sigma), 0.0, 1.0);
+
+    for (auto& vi : m.v)
+        if (rand_bool(cfg.p_coef))
+            vi += rand_normal(0.0, 0.2);
+    m.normalize_v();
+
+    for (auto& wi : m.w) {
+        if (rand_bool(cfg.p_coef)) {
+            if (rand_bool(0.2)) wi = rand_double(0.0, 1.0);
+            else wi = std::clamp(wi + rand_normal(0.0, 0.2), 0.0, 1.0);
+        }
+    }
+
+    if (m.n_harmonics < cfg.max_harmonics && rand_bool(cfg.p_add))
+        m.add_harmonic();
+
+    if (m.n_harmonics > cfg.min_harmonics && rand_bool(cfg.p_del))
+        m.remove_harmonic();
+
+    return m;
+}
+
+inline std::pair<AngularManifold, AngularManifold>
+crossover(const AngularManifold& p1, const AngularManifold& p2,
+          const OperatorConfig& /*cfg*/ = {}) {
+    assert(p1.dim == p2.dim);
+    int dim   = p1.dim;
+    int N_min = std::min(p1.n_harmonics, p2.n_harmonics);
+    int N_max = std::max(p1.n_harmonics, p2.n_harmonics);
+
+    const AngularManifold& longer  = (p1.n_harmonics >= p2.n_harmonics) ? p1 : p2;
+    const AngularManifold& shorter = (p1.n_harmonics >= p2.n_harmonics) ? p2 : p1;
+
+    std::vector<double> coefs_a, coefs_b;
+    coefs_a.reserve(N_max + 1);
+    coefs_b.reserve(N_max + 1);
+
+    for (int k = 0; k <= N_min; ++k) {
+        bool swap = rand_bool(0.5);
+        coefs_a.push_back(swap ? shorter.coefs[k] : longer.coefs[k]);
+        coefs_b.push_back(swap ? longer.coefs[k]  : shorter.coefs[k]);
+    }
+
+    int n_harm_a = N_min, n_harm_b = N_min;
+    for (int k = N_min + 1; k <= N_max; ++k) {
+        if (rand_bool(0.5)) {
+            coefs_a.push_back(longer.coefs[k]);
+            ++n_harm_a;
+        }
+        if (rand_bool(0.5)) {
+            coefs_b.push_back(longer.coefs[k]);
+            ++n_harm_b;
+        }
+    }
+
+    if (n_harm_a == 0) { n_harm_a = 1; coefs_a.push_back(rand_double(-AngularManifold::AMP_MAX, AngularManifold::AMP_MAX)); }
+    if (n_harm_b == 0) { n_harm_b = 1; coefs_b.push_back(rand_double(-AngularManifold::AMP_MAX, AngularManifold::AMP_MAX)); }
+
+    AngularManifold c1(dim, n_harm_a), c2(dim, n_harm_b);
+    c1.coefs = std::move(coefs_a);
+    c2.coefs = std::move(coefs_b);
+
+    for (int i = 0; i < dim; ++i) {
+        double alpha_c = rand_double(0.0, 1.0);
+        c1.center[i] = alpha_c * p1.center[i] + (1.0 - alpha_c) * p2.center[i];
+        c2.center[i] = (1.0 - alpha_c) * p1.center[i] + alpha_c * p2.center[i];
+
+        double alpha_v = rand_double(0.0, 1.0);
+        c1.v[i] = alpha_v * p1.v[i] + (1.0 - alpha_v) * p2.v[i];
+        c2.v[i] = (1.0 - alpha_v) * p1.v[i] + alpha_v * p2.v[i];
+
+        double alpha_w = rand_double(0.0, 1.0);
+        c1.w[i] = alpha_w * p1.w[i] + (1.0 - alpha_w) * p2.w[i];
+        c2.w[i] = (1.0 - alpha_w) * p1.w[i] + alpha_w * p2.w[i];
+    }
+    c1.normalize_v();
+    c2.normalize_v();
 
     assert(c1.valid());
     assert(c2.valid());

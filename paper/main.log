@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.16)  20 AUG 2026 21:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.16)  20 AUG 2026 23:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -368,6 +368,10 @@ LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
 Package babel Info: 'spanish' activates 'spanish' shorthands.
 (babel)             Reported on input line 12.
+
+
+LaTeX Warning: Label `fig:pareto' multiply defined.
+
 )
 \openout1 = `main.aux'.
 
@@ -391,8 +395,7 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 20.
 LaTeX Font Info:    ... okay on input line 20.
 LaTeX Info: Redefining \. on input line 20.
 LaTeX Info: Redefining \% on input line 20.
-
-(/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+ (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count318
 \scratchdimen=\dimen186
@@ -466,9 +469,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 23.
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-<../build/plot_chromosome.png, id=66, 954.9276pt x 381.8265pt>
+<../build/plot_chromosome.png, id=78, 954.9276pt x 381.8265pt>
 File: ../build/plot_chromosome.png Graphic file (type png)
 <use ../build/plot_chromosome.png>
 Package pdftex.def Info: ../build/plot_chromosome.png  used on input line 57.
@@ -481,61 +482,82 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 ]
-Underfull \hbox (badness 1701) in paragraph at lines 82--82
+<../build/plot_angular_chromosome.png, id=102, 974.6814pt x 570.933pt>
+File: ../build/plot_angular_chromosome.png Graphic file (type png)
+<use ../build/plot_angular_chromosome.png>
+Package pdftex.def Info: ../build/plot_angular_chromosome.png  used on input li
+ne 91.
+(pdftex.def)             Requested size: 239.55144pt x 140.31975pt.
+
+Underfull \hbox (badness 1701) in paragraph at lines 96--96
 []\OT1/cmr/bx/n/12 Espacio de Op-ti-mi-za-ci^^Son Multi-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--119
+Overfull \hbox (38.37021pt too wide) detected at line 112
+[][][]\OML/cmm/m/it/10 O[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 ^^U []  [] \OT1/c
+mr/m/n/10 + (1 \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 ^^U \OMS/cmsy/m/n/10 ^^@ \
+OML/cmm/m/it/10 ^^U[]\OT1/cmr/m/n/10 ) []  [] + \OML/cmm/m/it/10 ^^U[][]
+ []
+
+[2 <../build/plot_chromosome.png> <../build/plot_angular_chromosome.png>]
+<../build/plot_pareto.png, id=120, 498.663pt x 354.123pt>
+File: ../build/plot_pareto.png Graphic file (type png)
+<use ../build/plot_pareto.png>
+Package pdftex.def Info: ../build/plot_pareto.png  used on input line 117.
+(pdftex.def)             Requested size: 239.55144pt x 170.11758pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
 []\OT1/cmr/bx/n/10 Paralelismo Multi-n^^Sucleo sin Blo-queos
  []
 
 
-Underfull \hbox (badness 1308) in paragraph at lines 118--119
+Underfull \hbox (badness 1308) in paragraph at lines 139--140
 \OT1/cmr/m/n/10 ^^Sulti-ma em-plea \OT1/cmr/m/it/10 acu-mu-la-do-res thread-loc
 al\OT1/cmr/m/n/10 : ca-da
  []
 
-[2 <../build/plot_chromosome.png>]
-<../build/plot_benchmark.png, id=106, 1004.553pt x 354.123pt>
+<../build/plot_benchmark.png, id=123, 1004.553pt x 354.123pt>
 File: ../build/plot_benchmark.png Graphic file (type png)
 <use ../build/plot_benchmark.png>
-Package pdftex.def Info: ../build/plot_benchmark.png  used on input line 130.
+Package pdftex.def Info: ../build/plot_benchmark.png  used on input line 151.
 (pdftex.def)             Requested size: 489.10287pt x 172.41946pt.
-<../build/plot_time.png, id=107, 1004.553pt x 354.123pt>
+<../build/plot_time.png, id=124, 1004.553pt x 354.123pt>
 File: ../build/plot_time.png Graphic file (type png)
 <use ../build/plot_time.png>
-Package pdftex.def Info: ../build/plot_time.png  used on input line 137.
+Package pdftex.def Info: ../build/plot_time.png  used on input line 158.
 (pdftex.def)             Requested size: 489.10287pt x 172.41946pt.
-<../build/plot_dataset.png, id=108, 570.933pt x 426.393pt>
+<../build/plot_dataset.png, id=125, 570.933pt x 426.393pt>
 File: ../build/plot_dataset.png Graphic file (type png)
 <use ../build/plot_dataset.png>
-Package pdftex.def Info: ../build/plot_dataset.png  used on input line 144.
+Package pdftex.def Info: ../build/plot_dataset.png  used on input line 165.
 (pdftex.def)             Requested size: 239.55144pt x 178.90816pt.
-
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<../build/plot_pareto.png, id=109, 498.663pt x 354.123pt>
 File: ../build/plot_pareto.png Graphic file (type png)
 <use ../build/plot_pareto.png>
-Package pdftex.def Info: ../build/plot_pareto.png  used on input line 151.
+Package pdftex.def Info: ../build/plot_pareto.png  used on input line 172.
 (pdftex.def)             Requested size: 239.55144pt x 170.11758pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 4927) in paragraph at lines 156--156
+Underfull \hbox (badness 4927) in paragraph at lines 177--177
 []\OT1/cmr/bx/n/14.4 Evaluaci^^Son Ex-pe-ri-men-tal y
  []
 
-(./tables.tex) [3]
+[3 <../build/plot_pareto.png>] (./tables.tex
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4 <../build/plot_benchmark.png> <../build/plot_time.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [5 <../build/plot_dataset.png> <../build/plot_pareto.png>] [6
+ [5 <../build/plot_dataset.png>] [6] [7
 
 ] (./main.aux
 LaTeX Info: Redefining \. on input line 12.
@@ -545,33 +567,38 @@ LaTeX Info: Redefining \% on input line 12.
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 3B5140DAD969DBE415586B44CD414F7F;3759.
+(rerunfilecheck)             Checksum: 878D699FE1E5A44AE7C99999260CE18F;4773.
  ) 
 Here is how much of TeX's memory you used:
- 12292 strings out of 469453
- 186978 string characters out of 5469037
- 650990 words of memory out of 5000000
- 40759 multiletter control sequences out of 15000+600000
+ 12311 strings out of 469453
+ 187446 string characters out of 5469037
+ 657483 words of memory out of 5000000
+ 40768 multiletter control sequences out of 15000+600000
  637215 words of font info for 76 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 75i,14n,79p,1197b,553s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,14n,79p,1365b,557s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
-b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/font
-s/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (6 pages, 632102 bytes).
+ts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbxti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
+></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/
+amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (7 pages, 841260 bytes).
 PDF statistics:
- 223 PDF objects out of 1000 (max. 8388607)
- 175 compressed objects within 2 object streams
- 52 named destinations out of 1000 (max. 500000)
- 146 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 259 PDF objects out of 1000 (max. 8388607)
+ 205 compressed objects within 3 object streams
+ 62 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 

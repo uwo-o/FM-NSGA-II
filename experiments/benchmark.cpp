@@ -12,6 +12,7 @@
 #include "nsga2.hpp"
 #include "metrics.hpp"
 #include "knn.hpp"
+#include "angular_manifold.hpp"
 #include "naive_bayes.hpp"
 #include "svm.hpp"
 #include "decision_tree.hpp"
@@ -53,7 +54,7 @@ Result evaluate_nsga2(const std::string& ds_name,
                       const Dataset& train, const Dataset& test,
                       const NSGAConfig& cfg) {
     auto t0 = Clock::now();
-    FMClassifier clf(cfg);
+    Classifier<FourierManifold> clf(cfg);
     clf.fit(train);
     double ms = std::chrono::duration<double,std::milli>(Clock::now()-t0).count();
 
@@ -62,7 +63,27 @@ Result evaluate_nsga2(const std::string& ds_name,
     for (auto& s : test.samples) truth.push_back(s.label);
 
     return {
-        ds_name, "FM-NSGA-II",
+        ds_name, "FM-NSGA-II (Fourier)",
+        multiclass_accuracy(truth, preds),
+        macro_f1(truth, preds, test.class_labels),
+        ms
+    };
+}
+
+Result evaluate_nsga2_angular(const std::string& ds_name,
+                              const Dataset& train, const Dataset& test,
+                              const NSGAConfig& cfg) {
+    auto t0 = Clock::now();
+    Classifier<AngularManifold> clf(cfg);
+    clf.fit(train);
+    double ms = std::chrono::duration<double,std::milli>(Clock::now()-t0).count();
+
+    auto preds = clf.predict_all(test);
+    std::vector<int> truth;
+    for (auto& s : test.samples) truth.push_back(s.label);
+
+    return {
+        ds_name, "AM-NSGA-II (Angular)",
         multiclass_accuracy(truth, preds),
         macro_f1(truth, preds, test.class_labels),
         ms
@@ -127,13 +148,19 @@ int main() {
                   << ", d=" << data.n_features
                   << ", K=" << data.n_classes << ") ──\n";
 
-        // NSGA-II
-        std::cout << "  [NSGA-II]..." << std::flush;
-        auto r = evaluate_nsga2(ds_entry.name, train, test, cfg);
-        results.push_back(r);
-        std::cout << " acc=" << std::fixed << std::setprecision(4) << r.accuracy
-                  << " F1=" << r.f1
-                  << " (" << (int)r.train_ms << "ms)\n";
+        // NSGA-II Fourier
+        std::cout << "  [NSGA-II Fourier]..." << std::flush;
+        auto r_f = evaluate_nsga2(ds_entry.name, train, test, cfg);
+        results.push_back(r_f);
+        std::cout << " acc=" << std::fixed << std::setprecision(4) << r_f.accuracy
+                  << " F1=" << r_f.f1 << "\n";
+
+        // NSGA-II Angular
+        std::cout << "  [NSGA-II Angular]..." << std::flush;
+        auto r_a = evaluate_nsga2_angular(ds_entry.name, train, test, cfg);
+        results.push_back(r_a);
+        std::cout << " acc=" << std::fixed << std::setprecision(4) << r_a.accuracy
+                  << " F1=" << r_a.f1 << "\n";
 
         // Baselines
         KNN knn3(3), knn7(7);

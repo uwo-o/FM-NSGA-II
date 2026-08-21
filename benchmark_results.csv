@@ -1,0 +1,73 @@
+dataset,classifier,accuracy,f1,train_ms
+Two Moons (2D),FM-NSGA-II (Fourier),0.825,0.823232,5390.96
+Two Moons (2D),AM-NSGA-II (Angular),0.8125,0.792208,61.5111
+Two Moons (2D),k-NN (k=3),0.975,0.97421,0.01904
+Two Moons (2D),k-NN (k=7),0.9875,0.987045,0.0149
+Two Moons (2D),Gaussian Naive Bayes,0.85,0.842001,0.005536
+Two Moons (2D),SVM-RBF (C=1 γ=1.00),0.8875,0.884449,58.1289
+Two Moons (2D),SVM-Linear (C=1),0.875,0.869792,24.4755
+Two Moons (2D),Decision Tree (depth=8),0.975,0.973958,28.1415
+Circles (2D),FM-NSGA-II (Fourier),0.9125,0.911378,7232.66
+Circles (2D),AM-NSGA-II (Angular),0.575,0.546667,62.655
+Circles (2D),k-NN (k=3),1,1,0.016695
+Circles (2D),k-NN (k=7),1,1,0.016898
+Circles (2D),Gaussian Naive Bayes,1,1,0.005743
+Circles (2D),SVM-RBF (C=1 γ=1.00),1,1,113.174
+Circles (2D),SVM-Linear (C=1),0.4125,0.292035,21.6139
+Circles (2D),Decision Tree (depth=8),1,1,26.0116
+Spirals (2D),FM-NSGA-II (Fourier),0.575,0.532967,5784.41
+Spirals (2D),AM-NSGA-II (Angular),0.5875,0.542857,89.3238
+Spirals (2D),k-NN (k=3),1,1,0.0172
+Spirals (2D),k-NN (k=7),1,1,0.013328
+Spirals (2D),Gaussian Naive Bayes,0.6375,0.630514,0.005524
+Spirals (2D),SVM-RBF (C=1 γ=1.00),0.65,0.644444,80.8067
+Spirals (2D),SVM-Linear (C=1),0.6625,0.658174,16.1374
+Spirals (2D),Decision Tree (depth=8),0.95,0.949717,37.608
+Blobs (2D),FM-NSGA-II (Fourier),0.9875,0.987498,5683.48
+Blobs (2D),AM-NSGA-II (Angular),1,1,58.9335
+Blobs (2D),k-NN (k=3),1,1,0.017251
+Blobs (2D),k-NN (k=7),1,1,0.01358
+Blobs (2D),Gaussian Naive Bayes,1,1,0.005725
+Blobs (2D),SVM-RBF (C=1 γ=1.00),0.9875,0.987498,20.0714
+Blobs (2D),SVM-Linear (C=1),1,1,11.0654
+Blobs (2D),Decision Tree (depth=8),1,1,10.8393
+Chessboard (2D),FM-NSGA-II (Fourier),0.5125,0.511813,5821.08
+Chessboard (2D),AM-NSGA-II (Angular),0.6125,0.60199,64.125
+Chessboard (2D),k-NN (k=3),0.8,0.799499,0.016658
+Chessboard (2D),k-NN (k=7),0.8125,0.812471,0.013184
+Chessboard (2D),Gaussian Naive Bayes,0.5375,0.536849,0.005786
+Chessboard (2D),SVM-RBF (C=1 γ=1.00),0.5625,0.515152,99.5528
+Chessboard (2D),SVM-Linear (C=1),0.5375,0.515628,24.0257
+Chessboard (2D),Decision Tree (depth=8),0.7375,0.732441,32.7761
+Adversarial(52D),FM-NSGA-II (Fourier),0.6,0.593651,64186.9
+Adversarial(52D),AM-NSGA-II (Angular),0.5875,0.587436,216.879
+Adversarial(52D),k-NN (k=3),0.425,0.421747,0.043009
+Adversarial(52D),k-NN (k=7),0.4875,0.48742,0.028989
+Adversarial(52D),Gaussian Naive Bayes,0.75,0.742102,0.024579
+Adversarial(52D),SVM-RBF (C=1 γ=1.00),0.4125,0.292035,417.406
+Adversarial(52D),SVM-Linear (C=1),0.4,0.396606,769.415
+Adversarial(52D),Decision Tree (depth=8),0.9875,0.987045,1080.36
+Iris (4D),FM-NSGA-II (Fourier),1,1,3138.79
+Iris (4D),AM-NSGA-II (Angular),0.933333,0.932566,59.0567
+Iris (4D),k-NN (k=3),0.966667,0.967963,0.013897
+Iris (4D),k-NN (k=7),0.966667,0.967963,0.009276
+Iris (4D),Gaussian Naive Bayes,0.966667,0.967963,0.006444
+Iris (4D),SVM-RBF (C=1 γ=1.00),0.966667,0.967963,9.88347
+Iris (4D),SVM-Linear (C=1),0.933333,0.932692,4.6865
+Iris (4D),Decision Tree (depth=8),0.966667,0.967963,1.78281
+Wine (13D),FM-NSGA-II (Fourier),1,1,8908.34
+Wine (13D),AM-NSGA-II (Angular),0.942857,0.944361,92.4166
+Wine (13D),k-NN (k=3),1,1,0.022635
+Wine (13D),k-NN (k=7),0.971429,0.970962,0.011551
+Wine (13D),Gaussian Naive Bayes,0.971429,0.969639,0.008269
+Wine (13D),SVM-RBF (C=1 γ=1.00),1,1,66.721
+Wine (13D),SVM-Linear (C=1),1,1,14.0304
+Wine (13D),Decision Tree (depth=8),0.914286,0.914832,18.785
+BreastCancer(30D),FM-NSGA-II (Fourier),0.929204,0.91586,50410.5
+BreastCancer(30D),AM-NSGA-II (Angular),0.946903,0.936895,267.84
+BreastCancer(30D),k-NN (k=3),0.982301,0.978965,0.056778
+BreastCancer(30D),k-NN (k=7),0.982301,0.978965,0.028605
+BreastCancer(30D),Gaussian Naive Bayes,0.911504,0.89652,0.038679
+BreastCancer(30D),SVM-RBF (C=1 γ=1.00),0.99115,0.989393,514.522
+BreastCancer(30D),SVM-Linear (C=1),0.982301,0.978598,401.876
+BreastCancer(30D),Decision Tree (depth=8),0.920354,0.907587,920.897

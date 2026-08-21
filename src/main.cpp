@@ -1,11 +1,14 @@
 // ============================================================
 // src/main.cpp — Demo rápido del clasificador FM-NSGA-II
 // ============================================================
+#include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <chrono>
 #include "dataset.hpp"
 #include "nsga2.hpp"
+#include "angular_manifold.hpp"
 #include "metrics.hpp"
 #include "knn.hpp"
 #include "naive_bayes.hpp"
@@ -54,11 +57,11 @@ int main(int argc, char* argv[]) {
     cfg.obj_cfg.lambda   = 0.2;   // baja penalización de complejidad
     cfg.obj_cfg.arc_baseline = 8.0;
 
-    // ─── Entrenar FMClassifier ─────────────────────────
+    // ─── Entrenar Classifier<AngularManifold> ─────────────────────────
     std::cout << "────────────────────────────────────────────────────\n";
     std::cout << "Entrenando FM-NSGA-II Classifier...\n";
     auto t0 = Clock::now();
-    FMClassifier clf(cfg);
+    Classifier<AngularManifold> clf(cfg);
     clf.fit(train);
     double nsga_ms = std::chrono::duration<double,std::milli>(Clock::now()-t0).count();
 
@@ -105,6 +108,16 @@ int main(int argc, char* argv[]) {
                   << "  arco=" << std::fixed << std::setprecision(3) << m.arc_length()
                   << "\n";
     }
+    std::cout << "\n✓ Exportando frente de Pareto...\n";
+    std::ofstream ofs("pareto_front.csv");
+    ofs << "clase,error,complejidad,rank\n";
+    for (size_t k = 0; k < clf.fronts().size(); ++k) {
+        int cls = clf.labels()[k];
+        for (const auto& ind : clf.fronts()[k]) {
+            ofs << cls << "," << ind.obj[0] << "," << ind.obj[1] << "," << ind.rank << "\n";
+        }
+    }
+    
     std::cout << "\n✓ Visualizar: python3 visualize.py (solo para datasets 2D)\n";
     return 0;
 }
