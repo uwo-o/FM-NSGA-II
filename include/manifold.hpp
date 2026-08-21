@@ -41,6 +41,7 @@ struct FourierManifold {
     int n_harmonics;  // N (longitud variable del cromosoma)
 
     std::vector<double> center;  // c ∈ R^dim  (tamaño: dim)
+    std::vector<double> w;       // Feature weights (tamaño: dim)
     std::vector<double> coefs;   // Fourier coefficients (tamaño: 2*N*dim)
                                  // layout: [a_{0,k}, b_{0,k}, ..., a_{dim-1,k}, b_{dim-1,k}]
                                  //         repeated for k=1..N
@@ -57,6 +58,7 @@ struct FourierManifold {
     FourierManifold(int dim_, int n_harmonics_)
         : dim(dim_), n_harmonics(n_harmonics_),
           center(dim_, 0.5),
+          w(dim_, 1.0),
           coefs(2 * n_harmonics_ * dim_, 0.0) {
         assert(dim_ > 0 && n_harmonics_ > 0);
     }
@@ -64,6 +66,7 @@ struct FourierManifold {
     bool valid() const {
         return dim > 0 && n_harmonics > 0
             && (int)center.size() == dim
+            && (int)w.size() == dim
             && (int)coefs.size() == 2 * n_harmonics * dim;
     }
 
@@ -124,14 +127,14 @@ struct FourierManifold {
                     pi += a(k,i) * cos_tab[(k-1)*GRID_PTS + j]
                         + b(k,i) * sin_tab[(k-1)*GRID_PTS + j];
                 double diff = x[i] - pi;
-                d += diff * diff;
+                d += w[i] * diff * diff;
             }
             if (d < best_d) { best_d = d; best_t = j * step; }
         }
 
         // Refinamiento Golden Section en [best_t - eps, best_t + eps]
         double eps = step;
-        auto f = [&](double t){ return dist2_sq(x, eval(t)); };
+        auto f = [&](double t){ return dist2_sq(x, eval(t), w); };
         return golden_section(f, best_t - eps, best_t + eps, 20);
     }
 
@@ -140,8 +143,8 @@ struct FourierManifold {
     double signed_distance(const std::vector<double>& x) const {
         double t_star  = project(x);
         auto   gamma   = eval(t_star);
-        double r_x     = dist2(x,     center);
-        double r_gamma = dist2(gamma, center);
+        double r_x     = dist2(x,     center, w);
+        double r_gamma = dist2(gamma, center, w);
         return r_x - r_gamma;
     }
 

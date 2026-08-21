@@ -46,6 +46,15 @@ inline FourierManifold mutate(FourierManifold m, const OperatorConfig& cfg = {})
         if (rand_bool(cfg.p_coef))
             ci = std::clamp(ci + rand_normal(0.0, cfg.center_sigma), 0.0, 1.0);
 
+    // 2.5) Mutar pesos (Feature Weights)
+    for (auto& wi : m.w) {
+        if (rand_bool(cfg.p_coef)) {
+            // Fuerte presión exploratoria o refinamiento local
+            if (rand_bool(0.2)) wi = rand_double(0.0, 1.0); // Random reset
+            else wi = std::clamp(wi + rand_normal(0.0, 0.2), 0.0, 1.0); // Gauss
+        }
+    }
+
     // 3) Agregar harmónico (si no supera el máximo)
     if (m.n_harmonics < cfg.max_harmonics && rand_bool(cfg.p_add))
         m.add_harmonic();
@@ -112,15 +121,19 @@ crossover(const FourierManifold& p1, const FourierManifold& p2,
     if (n_harm_a == 0) { n_harm_a = 1; for (int j=0;j<2*dim;++j) coefs_a.push_back(rand_double(-FourierManifold::AMP_MAX, FourierManifold::AMP_MAX)); }
     if (n_harm_b == 0) { n_harm_b = 1; for (int j=0;j<2*dim;++j) coefs_b.push_back(rand_double(-FourierManifold::AMP_MAX, FourierManifold::AMP_MAX)); }
 
-    // ── Centro: interpolación aleatoria ──────────────────────
+    // ── Centro y Pesos: interpolación aleatoria ────────────────
     FourierManifold c1(dim, n_harm_a), c2(dim, n_harm_b);
     c1.coefs = std::move(coefs_a);
     c2.coefs = std::move(coefs_b);
 
     for (int i = 0; i < dim; ++i) {
-        double alpha = rand_double(0.0, 1.0);
-        c1.center[i] = alpha * p1.center[i] + (1.0 - alpha) * p2.center[i];
-        c2.center[i] = (1.0 - alpha) * p1.center[i] + alpha * p2.center[i];
+        double alpha_c = rand_double(0.0, 1.0);
+        c1.center[i] = alpha_c * p1.center[i] + (1.0 - alpha_c) * p2.center[i];
+        c2.center[i] = (1.0 - alpha_c) * p1.center[i] + alpha_c * p2.center[i];
+        
+        double alpha_w = rand_double(0.0, 1.0);
+        c1.w[i] = alpha_w * p1.w[i] + (1.0 - alpha_w) * p2.w[i];
+        c2.w[i] = (1.0 - alpha_w) * p1.w[i] + alpha_w * p2.w[i];
     }
 
     assert(c1.valid());

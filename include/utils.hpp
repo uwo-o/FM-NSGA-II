@@ -85,8 +85,16 @@ inline double dist2_sq(const std::vector<double>& a, const std::vector<double>& 
     for (size_t i = 0; i < a.size(); ++i) s += (a[i]-b[i])*(a[i]-b[i]);
     return s;
 }
+inline double dist2_sq(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& w) {
+    double s = 0;
+    for (size_t i = 0; i < a.size(); ++i) s += w[i] * (a[i]-b[i])*(a[i]-b[i]);
+    return s;
+}
 inline double dist2(const std::vector<double>& a, const std::vector<double>& b) {
     return std::sqrt(dist2_sq(a, b));
+}
+inline double dist2(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& w) {
+    return std::sqrt(dist2_sq(a, b, w));
 }
 inline std::vector<double> vsub(const std::vector<double>& a, const std::vector<double>& b) {
     std::vector<double> r(a.size());

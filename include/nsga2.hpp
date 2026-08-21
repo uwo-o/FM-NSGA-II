@@ -230,13 +230,46 @@ private:
         int n = (int)pop.size();
         std::vector<int> dom_count(n, 0);
         std::vector<std::vector<int>> dom_set(n);
+        // Dominance matrix — sin contención:
+        // Cada hilo acumula sus propios vectores locales y los fusionamos
+        // al final en un único paso serie, evitando critical/atomic.
+#ifdef _OPENMP
+        const int n_threads = omp_get_max_threads();
+        // dom_set_local[tid][i] = lista de j que i domina, vista por el hilo tid
+        std::vector<std::vector<std::vector<int>>> dom_set_local(
+            n_threads, std::vector<std::vector<int>>(n));
+        std::vector<std::vector<int>> dom_count_local(n_threads, std::vector<int>(n, 0));
 
+        #pragma omp parallel
+        {
+            int tid = omp_get_thread_num();
+            auto& local_set   = dom_set_local[tid];
+            auto& local_count = dom_count_local[tid];
+
+            #pragma omp for schedule(dynamic, 4)
+            for (int i = 0; i < n; ++i)
+                for (int j = 0; j < n; ++j) {
+                    if (i == j) continue;
+                    if (pop[i].dominates(pop[j])) local_set[i].push_back(j);
+                    else if (pop[j].dominates(pop[i])) ++local_count[i];
+                }
+        }
+
+        // Fusión serie (sin locks)
+        for (int t = 0; t < n_threads; ++t)
+            for (int i = 0; i < n; ++i) {
+                dom_count[i] += dom_count_local[t][i];
+                for (int j : dom_set_local[t][i])
+                    dom_set[i].push_back(j);
+            }
+#else
         for (int i = 0; i < n; ++i)
             for (int j = 0; j < n; ++j) {
                 if (i == j) continue;
                 if (pop[i].dominates(pop[j]))      dom_set[i].push_back(j);
                 else if (pop[j].dominates(pop[i])) ++dom_count[i];
             }
+#endif
 
         // Reservar espacio suficiente en fronts para evitar realloc
         std::vector<std::vector<int>> fronts;
@@ -305,10 +338,12 @@ private:
 
     // ─── Generación de offspring ──────────────────────────────
     std::vector<Individual> make_offspring(const std::vector<Individual>& pop) {
-        std::vector<Individual> offspring;
-        offspring.reserve(cfg_.pop_size);
+        std::vector<Individual> offspring(cfg_.pop_size);
 
-        while ((int)offspring.size() < cfg_.pop_size) {
+#ifdef _OPENMP
+        #pragma omp parallel for schedule(dynamic, 2)
+#endif
+        for (int oi = 0; oi < cfg_.pop_size; oi += 2) {
             const auto& p1 = tournament(pop);
             const auto& p2 = tournament(pop);
 
@@ -322,15 +357,14 @@ private:
                 m2 = p2.manifold;
             }
 
-            // Asegurar límites de harmónicos
             while (m1.n_harmonics > cfg_.max_harmonics) m1.remove_harmonic();
             while (m1.n_harmonics < cfg_.min_harmonics) m1.add_harmonic();
             while (m2.n_harmonics > cfg_.max_harmonics) m2.remove_harmonic();
             while (m2.n_harmonics < cfg_.min_harmonics) m2.add_harmonic();
 
-            offspring.push_back({mutate(m1, cfg_.op_cfg), {1.0, 1.0}, 0, 0.0});
-            if ((int)offspring.size() < cfg_.pop_size)
-                offspring.push_back({mutate(m2, cfg_.op_cfg), {1.0, 1.0}, 0, 0.0});
+            offspring[oi] = {mutate(m1, cfg_.op_cfg), {1.0, 1.0}, 0, 0.0};
+            if (oi + 1 < cfg_.pop_size)
+                offspring[oi + 1] = {mutate(m2, cfg_.op_cfg), {1.0, 1.0}, 0, 0.0};
         }
         return offspring;
     }
@@ -418,10 +452,13 @@ public:
 
     // Predicción sobre dataset completo
     std::vector<int> predict_all(const Dataset& data) const {
-        std::vector<int> preds;
-        preds.reserve(data.size());
-        for (auto& s : data.samples)
-            preds.push_back(predict(s.x));
+        int n = data.size();
+        std::vector<int> preds(n);
+#ifdef _OPENMP
+        #pragma omp parallel for schedule(static)
+#endif
+        for (int i = 0; i < n; ++i)
+            preds[i] = predict(data.samples[i].x);
         return preds;
     }
 
