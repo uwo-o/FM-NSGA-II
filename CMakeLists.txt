@@ -37,6 +37,10 @@ target_link_libraries(fm_nsga2_core PUBLIC OpenMP::OpenMP_CXX)
 add_executable(fm_nsga2 src/main.cpp)
 target_link_libraries(fm_nsga2 fm_nsga2_core)
 
+# --- MGDA executable (gradient-based multi-objective) ---
+add_executable(mgda src/mgda_main.cpp)
+target_link_libraries(mgda fm_nsga2_core)
+
 # --- Benchmark executable ---
 add_executable(benchmark experiments/benchmark.cpp)
 target_link_libraries(benchmark fm_nsga2_core)
