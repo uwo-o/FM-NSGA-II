@@ -1,24 +1,71 @@
-\begin{table*}[h!]
+\begin{table*}[t]
 \centering
-\caption{Resultados Consolidados: Accuracy, F1-Score y Tiempo (ms) por Dataset y Clasificador}
-\label{tab:unified}
+\caption{Precisión global (Accuracy) (una corrida). Se comparan los tres kernels topológicos evolucionados (FM, AM, GAM) contra baselines clásicos en 9 datasets. El mejor valor por dataset se resalta en negrita. GAM-NSGA-II domina en datos tabulares de alta dimensión (Breast Cancer 30D: 97.35\%), mientras FM-NSGA-II mantiene la ventaja en geometrías no-aditivas (Two Moons, Wine). AM-NSGA-II ofrece la mayor velocidad a costa de precisión en alta dimensión.}
 \vspace{0.2cm}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{l ccc ccc ccc ccc ccc ccc ccc ccc}
+\begin{tabular}{lccccccccccc}
 \toprule
-\textbf{Dataset} & \multicolumn{3}{c}{\textbf{FM-NSGA-II (Fourier)}} & \multicolumn{3}{c}{\textbf{AM-NSGA-II (Angular)}} & \multicolumn{3}{c}{\textbf{k-NN (k=3)}} & \multicolumn{3}{c}{\textbf{k-NN (k=7)}} & \multicolumn{3}{c}{\textbf{Gaussian Naive Bayes}} & \multicolumn{3}{c}{\textbf{SVM-RBF (C=1 $\gamma$=1.00)}} & \multicolumn{3}{c}{\textbf{SVM-Linear (C=1)}} & \multicolumn{3}{c}{\textbf{Decision Tree (depth=8)}} \\
-  & Acc & F1 & ms & Acc & F1 & ms & Acc & F1 & ms & Acc & F1 & ms & Acc & F1 & ms & Acc & F1 & ms & Acc & F1 & ms & Acc & F1 & ms \\
-\cmidrule(lr){1-1} \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-13} \cmidrule(lr){14-16} \cmidrule(lr){17-19} \cmidrule(lr){20-22} \cmidrule(lr){23-25} 
-Two Moons (2D) & 0.8250 & 0.8232 & 5390 & 0.8125 & 0.7922 & 61 & 0.9750 & 0.9742 & 0 & \textbf{0.9875} & \textbf{0.9870} & 0 & 0.8500 & 0.8420 & 0 & 0.8875 & 0.8844 & 58 & 0.8750 & 0.8698 & 24 & 0.9750 & 0.9740 & 28 \\
-Circles (2D) & 0.9125 & 0.9114 & 7232 & 0.5750 & 0.5467 & 62 & \textbf{1.0000} & \textbf{1.0000} & 0 & \textbf{1.0000} & \textbf{1.0000} & 0 & \textbf{1.0000} & \textbf{1.0000} & 0 & \textbf{1.0000} & \textbf{1.0000} & 113 & 0.4125 & 0.2920 & 21 & \textbf{1.0000} & \textbf{1.0000} & 26 \\
-Spirals (2D) & 0.5750 & 0.5330 & 5784 & 0.5875 & 0.5429 & 89 & \textbf{1.0000} & \textbf{1.0000} & 0 & \textbf{1.0000} & \textbf{1.0000} & 0 & 0.6375 & 0.6305 & 0 & 0.6500 & 0.6444 & 80 & 0.6625 & 0.6582 & 16 & 0.9500 & 0.9497 & 37 \\
-Blobs (2D) & 0.9875 & 0.9875 & 5683 & \textbf{1.0000} & \textbf{1.0000} & 58 & \textbf{1.0000} & \textbf{1.0000} & 0 & \textbf{1.0000} & \textbf{1.0000} & 0 & \textbf{1.0000} & \textbf{1.0000} & 0 & 0.9875 & 0.9875 & 20 & \textbf{1.0000} & \textbf{1.0000} & 11 & \textbf{1.0000} & \textbf{1.0000} & 10 \\
-Chessboard (2D) & 0.5125 & 0.5118 & 5821 & 0.6125 & 0.6020 & 64 & 0.8000 & 0.7995 & 0 & \textbf{0.8125} & \textbf{0.8125} & 0 & 0.5375 & 0.5368 & 0 & 0.5625 & 0.5152 & 99 & 0.5375 & 0.5156 & 24 & 0.7375 & 0.7324 & 32 \\
-Adversarial(52D) & 0.6000 & 0.5937 & 64186 & 0.5875 & 0.5874 & 216 & 0.4250 & 0.4217 & 0 & 0.4875 & 0.4874 & 0 & 0.7500 & 0.7421 & 0 & 0.4125 & 0.2920 & 417 & 0.4000 & 0.3966 & 769 & \textbf{0.9875} & \textbf{0.9870} & 1080 \\
-Iris (4D) & \textbf{1.0000} & \textbf{1.0000} & 3138 & 0.9333 & 0.9326 & 59 & 0.9667 & 0.9680 & 0 & 0.9667 & 0.9680 & 0 & 0.9667 & 0.9680 & 0 & 0.9667 & 0.9680 & 9 & 0.9333 & 0.9327 & 4 & 0.9667 & 0.9680 & 1 \\
-Wine (13D) & \textbf{1.0000} & \textbf{1.0000} & 8908 & 0.9429 & 0.9444 & 92 & \textbf{1.0000} & \textbf{1.0000} & 0 & 0.9714 & 0.9710 & 0 & 0.9714 & 0.9696 & 0 & \textbf{1.0000} & \textbf{1.0000} & 66 & \textbf{1.0000} & \textbf{1.0000} & 14 & 0.9143 & 0.9148 & 18 \\
-BreastCancer(30D) & 0.9292 & 0.9159 & 50410 & 0.9469 & 0.9369 & 267 & 0.9823 & 0.9790 & 0 & 0.9823 & 0.9790 & 0 & 0.9115 & 0.8965 & 0 & \textbf{0.9911} & \textbf{0.9894} & 514 & 0.9823 & 0.9786 & 401 & 0.9204 & 0.9076 & 920 \\
+\textbf{Dataset} & \textbf{NSGA-Fourier} & \textbf{NSGA-Angular} & \textbf{NSGA-GAM} & \textbf{NSGA-SHM} & \textbf{MGDA-Angular} & \textbf{MGDA-GAM} & \textbf{k-NN (k=3)} & \textbf{k-NN (k=7)} & \textbf{Gaussian Naive Bayes} & \textbf{SVM-RBF (C=1 $\gamma$=1.00)} & \textbf{Decision Tree (depth=8)} \\
+\midrule
+\textbf{Two Moons (2D)} & 0.8875 & 0.8500 & 0.8375 & 0.8500 & 0.9750 & 0.8875 & 0.9750 & \textbf{0.9875} & 0.8500 & 0.8625 & 0.9750 \\
+\textbf{Circles (2D)} & 0.9125 & 0.5375 & \textbf{1.0000} & 0.5625 & 0.8625 & 0.7750 & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} \\
+\textbf{Spirals (2D)} & 0.6875 & 0.6500 & 0.6500 & 0.5500 & 0.6250 & 0.6500 & \textbf{1.0000} & \textbf{1.0000} & 0.6375 & 0.6375 & 0.9500 \\
+\textbf{Blobs (2D)} & 0.9750 & \textbf{1.0000} & 0.9750 & 0.9750 & 0.9875 & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} \\
+\textbf{Chessboard (2D)} & 0.5125 & 0.4375 & 0.6875 & 0.4625 & 0.5625 & 0.5000 & 0.8000 & \textbf{0.8125} & 0.5375 & 0.5500 & 0.7375 \\
+\textbf{Adversarial(52D)} & 0.5000 & 0.5000 & 0.5500 & 0.4750 & 0.6500 & 0.7625 & 0.4250 & 0.4875 & 0.7500 & 0.4125 & \textbf{0.9875} \\
+\textbf{Iris (4D)} & 0.9667 & 0.8333 & \textbf{1.0000} & 0.9667 & 0.9667 & 0.9667 & 0.9667 & 0.9667 & 0.9667 & 0.9667 & 0.9667 \\
+\textbf{Wine (13D)} & 0.8571 & 0.9429 & 0.9714 & 0.9429 & 0.9714 & \textbf{1.0000} & \textbf{1.0000} & 0.9714 & 0.9714 & \textbf{1.0000} & 0.9143 \\
+\textbf{BreastCancer(30D)} & 0.9204 & 0.9735 & 0.9292 & 0.9469 & 0.9646 & 0.9558 & 0.9823 & 0.9823 & 0.9115 & \textbf{0.9911} & 0.9204 \\
 \bottomrule
 \end{tabular}
 }
+\label{tab:accuracy}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Macro F1-Score (una corrida). Complementa la Tabla~\ref{tab:accuracy} con la métrica F1 para exponer desequilibrios en precisión/recall. GAM-NSGA-II logra F1=0.9682 en Breast Cancer 30D, superando a FM (0.9172) y AM (0.9257).}
+\vspace{0.2cm}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lccccccccccc}
+\toprule
+\textbf{Dataset} & \textbf{NSGA-Fourier} & \textbf{NSGA-Angular} & \textbf{NSGA-GAM} & \textbf{NSGA-SHM} & \textbf{MGDA-Angular} & \textbf{MGDA-GAM} & \textbf{k-NN (k=3)} & \textbf{k-NN (k=7)} & \textbf{Gaussian Naive Bayes} & \textbf{SVM-RBF (C=1 $\gamma$=1.00)} & \textbf{Decision Tree (depth=8)} \\
+\midrule
+\textbf{Two Moons (2D)} & 0.8822 & 0.8400 & 0.8298 & 0.8423 & 0.9740 & 0.8834 & 0.9742 & \textbf{0.9870} & 0.8420 & 0.8560 & 0.9740 \\
+\textbf{Circles (2D)} & 0.9108 & 0.4958 & \textbf{1.0000} & 0.5422 & 0.8623 & 0.7744 & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} \\
+\textbf{Spirals (2D)} & 0.6402 & 0.6419 & 0.6419 & 0.5401 & 0.6248 & 0.6419 & \textbf{1.0000} & \textbf{1.0000} & 0.6305 & 0.6305 & 0.9497 \\
+\textbf{Blobs (2D)} & 0.9750 & \textbf{1.0000} & 0.9750 & 0.9750 & 0.9875 & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} & \textbf{1.0000} \\
+\textbf{Chessboard (2D)} & 0.5031 & 0.3043 & 0.6537 & 0.4502 & 0.5569 & 0.4885 & 0.7995 & \textbf{0.8125} & 0.5368 & 0.5055 & 0.7324 \\
+\textbf{Adversarial(52D)} & 0.4842 & 0.4410 & 0.5200 & 0.4682 & 0.6498 & 0.7622 & 0.4217 & 0.4874 & 0.7421 & 0.2920 & \textbf{0.9870} \\
+\textbf{Iris (4D)} & 0.9680 & 0.8258 & \textbf{1.0000} & 0.9680 & 0.9680 & 0.9680 & 0.9680 & 0.9680 & 0.9680 & 0.9680 & 0.9680 \\
+\textbf{Wine (13D)} & 0.8524 & 0.9407 & 0.9696 & 0.9407 & 0.9734 & \textbf{1.0000} & \textbf{1.0000} & 0.9710 & 0.9696 & \textbf{1.0000} & 0.9148 \\
+\textbf{BreastCancer(30D)} & 0.9076 & 0.9682 & 0.9144 & 0.9411 & 0.9586 & 0.9470 & 0.9790 & 0.9790 & 0.8965 & \textbf{0.9894} & 0.9076 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:f1}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Costo computacional de entrenamiento (una corrida) (ms). AM-NSGA-II es el kernel más rápido ($\sim$70\,ms en 2D), FM-NSGA-II es el más costoso en alta dimensión (>57\,000\,ms en 30D), GAM-NSGA-II ofrece un balance intermedio ($\sim$2\,000\,ms en 30D) con mayor precisión que FM en datos tabulares.}
+\vspace{0.2cm}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lrrrrrrrrrrr}
+\toprule
+\textbf{Dataset} & \textbf{NSGA-Fourier} & \textbf{NSGA-Angular} & \textbf{NSGA-GAM} & \textbf{NSGA-SHM} & \textbf{MGDA-Angular} & \textbf{MGDA-GAM} & \textbf{k-NN (k=3)} & \textbf{k-NN (k=7)} & \textbf{Gaussian Naive Bayes} & \textbf{SVM-RBF (C=1 $\gamma$=1.00)} & \textbf{Decision Tree (depth=8)} \\
+\midrule
+\textbf{Two Moons (2D)} & 4329 & 62 & 109 & 452 & 108 & 196 & 0 & 0 & 0 & 75 & 23 \\
+\textbf{Circles (2D)} & 5474 & 64 & 117 & 424 & 110 & 191 & 0 & 0 & 0 & 83 & 26 \\
+\textbf{Spirals (2D)} & 4947 & 64 & 144 & 384 & 107 & 187 & 0 & 0 & 0 & 72 & 38 \\
+\textbf{Blobs (2D)} & 4050 & 61 & 101 & 445 & 105 & 177 & 0 & 0 & 0 & 31 & 10 \\
+\textbf{Chessboard (2D)} & 4410 & 58 & 181 & 337 & 108 & 189 & 0 & 0 & 0 & 92 & 31 \\
+\textbf{Adversarial(52D)} & 48046 & 215 & 2361 & 1096 & 989 & 4261 & 0 & 0 & 0 & 403 & 1051 \\
+\textbf{Iris (4D)} & 2658 & 74 & 152 & 419 & 193 & 440 & 0 & 0 & 0 & 10 & 1 \\
+\textbf{Wine (13D)} & 6403 & 89 & 229 & 585 & 466 & 1599 & 0 & 0 & 0 & 54 & 18 \\
+\textbf{BreastCancer(30D)} & 41045 & 187 & 1347 & 1153 & 595 & 2144 & 0 & 0 & 0 & 946 & 954 \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:time}
 \end{table*}

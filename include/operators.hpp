@@ -20,6 +20,8 @@
 #include <cassert>
 #include "manifold.hpp"
 #include "angular_manifold.hpp"
+#include "gam_manifold.hpp"
+#include "sh_manifold.hpp"
 
 namespace nsga2 {
 
@@ -234,6 +236,235 @@ crossover(const AngularManifold& p1, const AngularManifold& p2,
     }
     c1.normalize_v();
     c2.normalize_v();
+
+    assert(c1.valid());
+    assert(c2.valid());
+    return {c1, c2};
+}
+
+
+// ─── Operadores para GAMManifold ──────────────────────────────
+
+inline GAMManifold mutate(GAMManifold m, const OperatorConfig& cfg = {}) {
+    assert(m.valid());
+
+    // 1) Mutar β₀
+    if (rand_bool(cfg.p_coef))
+        m.beta0 = std::clamp(m.beta0 + rand_normal(0.0, 0.2),
+                             -GAMManifold::BETA_MAX, GAMManifold::BETA_MAX);
+
+    // 2) Mutar pesos de feature (Feature Selection)
+    for (auto& wi : m.w) {
+        if (rand_bool(cfg.p_coef)) {
+            if (rand_bool(0.15)) wi = rand_double(0.0, 1.0);   // reset ERC
+            else wi = std::clamp(wi + rand_normal(0.0, 0.2), 0.0, 1.0);
+        }
+    }
+
+    // 3) Mutar coeficientes Fourier por feature
+    for (auto& c : m.coefs) {
+        if (rand_bool(cfg.p_coef))
+            c = rand_double(-GAMManifold::AMP_MAX, GAMManifold::AMP_MAX);
+    }
+
+    // 4) Agregar / eliminar armónico (variable-length)
+    if (m.n_harmonics < cfg.max_harmonics && rand_bool(cfg.p_add))
+        m.add_harmonic();
+
+    if (m.n_harmonics > cfg.min_harmonics && rand_bool(cfg.p_del))
+        m.remove_harmonic();
+
+    return m;
+}
+
+// Cruzamiento por bloques de feature (un bloque = {w_i, a_{i,1},b_{i,1},...})
+// Para cada feature se intercambia el bloque completo con prob 0.5.
+// Los armónicos extra del padre más largo se heredan con prob 0.5.
+inline std::pair<GAMManifold, GAMManifold>
+crossover(const GAMManifold& p1, const GAMManifold& p2,
+          const OperatorConfig& /*cfg*/ = {}) {
+    assert(p1.dim == p2.dim);
+    const int dim   = p1.dim;
+    const int N_min = std::min(p1.n_harmonics, p2.n_harmonics);
+    const int N_max = std::max(p1.n_harmonics, p2.n_harmonics);
+
+    const GAMManifold& longer  = (p1.n_harmonics >= p2.n_harmonics) ? p1 : p2;
+    const GAMManifold& shorter = (p1.n_harmonics >= p2.n_harmonics) ? p2 : p1;
+
+    // Hijos con N_min armónicos inicialmente
+    GAMManifold c1(dim, N_min), c2(dim, N_min);
+
+    // β₀: interpolación aleatoria
+    double ab = rand_double(0.0, 1.0);
+    c1.beta0 = ab * p1.beta0 + (1.0 - ab) * p2.beta0;
+    c2.beta0 = (1.0 - ab) * p1.beta0 + ab * p2.beta0;
+
+    // Por cada feature: intercambiar bloque entero con prob 0.5
+    for (int i = 0; i < dim; ++i) {
+        bool swap = rand_bool(0.5);
+
+        // Peso w_i
+        double aw = rand_double(0.0, 1.0);
+        c1.w[i] = aw * p1.w[i] + (1.0 - aw) * p2.w[i];
+        c2.w[i] = (1.0 - aw) * p1.w[i] + aw * p2.w[i];
+
+        // Coeficientes compartidos (hasta N_min)
+        int base1_shorter = i * 2 * shorter.n_harmonics;
+        int base1_longer  = i * 2 * longer.n_harmonics;
+        int base_c1       = i * 2 * N_min;
+
+        for (int k = 0; k < 2 * N_min; ++k) {
+            c1.coefs[base_c1 + k] = swap
+                ? shorter.coefs[base1_shorter + k]
+                : longer.coefs[base1_longer   + k];
+            c2.coefs[base_c1 + k] = swap
+                ? longer.coefs[base1_longer   + k]
+                : shorter.coefs[base1_shorter + k];
+        }
+    }
+
+    // Armónicos extra del padre más largo: agregar con prob 0.5 a cada hijo
+    // (la estructura de GAMManifold::add_harmonic los añade al final)
+    for (int k = N_min + 1; k <= N_max; ++k) {
+        if (rand_bool(0.5)) {
+            // Añadir armónico k del padre largo a c1
+            int old_H = c1.n_harmonics;
+            c1.add_harmonic(); // asigna ERC; luego sobreescribimos
+            for (int i = 0; i < dim; ++i) {
+                c1.a(i, old_H + 1) = longer.coefs[i * 2 * longer.n_harmonics + (k-1)*2    ];
+                c1.b(i, old_H + 1) = longer.coefs[i * 2 * longer.n_harmonics + (k-1)*2 + 1];
+            }
+        }
+        if (rand_bool(0.5)) {
+            int old_H = c2.n_harmonics;
+            c2.add_harmonic();
+            for (int i = 0; i < dim; ++i) {
+                c2.a(i, old_H + 1) = longer.coefs[i * 2 * longer.n_harmonics + (k-1)*2    ];
+                c2.b(i, old_H + 1) = longer.coefs[i * 2 * longer.n_harmonics + (k-1)*2 + 1];
+            }
+        }
+    }
+
+    assert(c1.valid());
+    assert(c2.valid());
+    return {c1, c2};
+}
+
+// ─── Operadores para SphericalHarmonicManifold ────────────────
+
+inline SphericalHarmonicManifold mutate(SphericalHarmonicManifold m, const OperatorConfig& cfg = {}) {
+    assert(m.valid());
+
+    // 1) Mutar coeficientes SH
+    for (size_t i = 0; i < m.coefs.size(); ++i) {
+        if (rand_bool(cfg.p_coef)) {
+            if (i == 0) {
+                // Radio base
+                m.coefs[0] = std::clamp(m.coefs[0] + rand_normal(0.0, 0.05), 0.05, 2.0);
+            } else {
+                m.coefs[i] += rand_normal(0.0, 0.05);
+            }
+        }
+    }
+
+    // 2) Mutar centroide
+    for (auto& ci : m.center) {
+        if (rand_bool(cfg.p_coef)) {
+            ci = std::clamp(ci + rand_normal(0.0, cfg.center_sigma), 0.0, 1.0);
+        }
+    }
+
+    // 3) Mutar base 3D {v1, v2, v3}
+    bool mutated_v = false;
+    for (int i = 0; i < m.dim; ++i) {
+        if (rand_bool(cfg.p_coef)) { m.v1[i] += rand_normal(0.0, 0.1); mutated_v = true; }
+        if (rand_bool(cfg.p_coef)) { m.v2[i] += rand_normal(0.0, 0.1); mutated_v = true; }
+        if (rand_bool(cfg.p_coef)) { m.v3[i] += rand_normal(0.0, 0.1); mutated_v = true; }
+    }
+    if (mutated_v) {
+        m.orthonormalize();
+    }
+
+    // 4) Mutar feature weights
+    for (auto& wi : m.w) {
+        if (rand_bool(cfg.p_coef)) {
+            if (rand_bool(0.15)) wi = rand_double(0.0, 1.0);
+            else wi = std::clamp(wi + rand_normal(0.0, 0.2), 0.0, 1.0);
+        }
+    }
+
+    // 5) Agregar grado SH
+    if (m.n_harmonics < cfg.max_harmonics && rand_bool(cfg.p_add)) {
+        m.add_harmonic();
+    }
+
+    // 6) Eliminar grado SH
+    if (m.n_harmonics > cfg.min_harmonics && rand_bool(cfg.p_del)) {
+        m.remove_harmonic();
+    }
+
+    return m;
+}
+
+inline std::pair<SphericalHarmonicManifold, SphericalHarmonicManifold>
+crossover(const SphericalHarmonicManifold& p1, const SphericalHarmonicManifold& p2,
+          const OperatorConfig& /*cfg*/ = {}) {
+    assert(p1.dim == p2.dim);
+    int dim = p1.dim;
+    int L_min = std::min(p1.n_harmonics, p2.n_harmonics);
+    int L_max = std::max(p1.n_harmonics, p2.n_harmonics);
+
+    const SphericalHarmonicManifold& longer  = (p1.n_harmonics >= p2.n_harmonics) ? p1 : p2;
+    const SphericalHarmonicManifold& shorter = (p1.n_harmonics >= p2.n_harmonics) ? p2 : p1;
+
+    int L_a = rand_int(L_min, L_max);
+    int L_b = rand_int(L_min, L_max);
+
+    std::vector<double> coefs_a(sh_total(L_a)), coefs_b(sh_total(L_b));
+
+    for (int l = 0; l <= L_max; ++l) {
+        bool swap = rand_bool(0.5);
+        for (int m = -l; m <= l; ++m) {
+            int idx = sh_index(l, m);
+            if (l <= L_min) {
+                coefs_a[idx] = swap ? shorter.coefs[idx] : longer.coefs[idx];
+                coefs_b[idx] = swap ? longer.coefs[idx]  : shorter.coefs[idx];
+            } else {
+                if (l <= L_a) coefs_a[idx] = longer.coefs[idx];
+                if (l <= L_b) coefs_b[idx] = longer.coefs[idx];
+            }
+        }
+    }
+
+    SphericalHarmonicManifold c1(dim, L_a), c2(dim, L_b);
+    c1.coefs = std::move(coefs_a);
+    c2.coefs = std::move(coefs_b);
+
+    // Cruzar centroide, w y base
+    for (int i = 0; i < dim; ++i) {
+        double ac = rand_double(0.0, 1.0);
+        c1.center[i] = ac * p1.center[i] + (1.0 - ac) * p2.center[i];
+        c2.center[i] = (1.0 - ac) * p1.center[i] + ac * p2.center[i];
+
+        double aw = rand_double(0.0, 1.0);
+        c1.w[i] = aw * p1.w[i] + (1.0 - aw) * p2.w[i];
+        c2.w[i] = (1.0 - aw) * p1.w[i] + aw * p2.w[i];
+
+        double av1 = rand_double(0.0, 1.0);
+        c1.v1[i] = av1 * p1.v1[i] + (1.0 - av1) * p2.v1[i];
+        c2.v1[i] = (1.0 - av1) * p1.v1[i] + av1 * p2.v1[i];
+
+        double av2 = rand_double(0.0, 1.0);
+        c1.v2[i] = av2 * p1.v2[i] + (1.0 - av2) * p2.v2[i];
+        c2.v2[i] = (1.0 - av2) * p1.v2[i] + av2 * p2.v2[i];
+
+        double av3 = rand_double(0.0, 1.0);
+        c1.v3[i] = av3 * p1.v3[i] + (1.0 - av3) * p2.v3[i];
+        c2.v3[i] = (1.0 - av3) * p1.v3[i] + av3 * p2.v3[i];
+    }
+
+    c1.orthonormalize();
+    c2.orthonormalize();
 
     assert(c1.valid());
     assert(c2.valid());

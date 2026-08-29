@@ -113,6 +113,22 @@ int main(int argc, char* argv[]) {
                  << tp.grad_norm  << "\n";
     }
 
+    std::cout << "✓ Exportando manifolds → angular_manifolds_mgda.json\n";
+    std::ofstream mj("angular_manifolds_mgda.json");
+    mj << "{\"manifolds\":[\n";
+    for (size_t k = 0; k < clf.manifolds().size(); ++k) {
+        auto& m = clf.manifolds()[k];
+        mj << "  {\"class\":" << clf.labels()[k] << ",\n"
+           << "   \"dim\":" << m.dim << ",\n"
+           << "   \"n_harmonics\":" << m.n_harmonics << ",\n"
+           << "   \"center\":["; for(int i=0;i<m.dim;++i) mj << m.center[i] << (i==m.dim-1?"":","); mj << "],\n"
+           << "   \"v\":["; for(int i=0;i<m.dim;++i) mj << m.v[i] << (i==m.dim-1?"":","); mj << "],\n"
+           << "   \"w\":["; for(int i=0;i<m.dim;++i) mj << m.w[i] << (i==m.dim-1?"":","); mj << "],\n"
+           << "   \"coefs\":["; for(int i=0;i<(int)m.coefs.size();++i) mj << m.coefs[i] << (i==(int)m.coefs.size()-1?"":","); mj << "]}\n";
+        if(k < clf.manifolds().size()-1) mj << ",\n";
+    }
+    mj << "]}\n";
+
     // ─── Exportar puntos finales de Pareto ───────────────────
     std::cout << "✓ Exportando frente Pareto → mgda_pareto.csv\n";
     std::ofstream pf("mgda_pareto.csv");

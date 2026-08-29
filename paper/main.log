@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.16)  20 AUG 2026 23:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.16)  29 AUG 2026 09:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -360,53 +360,77 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layoutvoffset=\dimen185
 \Gm@dimlist=\toks26
 )
+(/usr/share/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+
+(/usr/share/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(/usr/share/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen186
+\captionmargin=\dimen187
+\caption@leftmargin=\dimen188
+\caption@rightmargin=\dimen189
+\caption@width=\dimen190
+\caption@indent=\dimen191
+\caption@parindent=\dimen192
+\caption@hangindent=\dimen193
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count317
+\c@continuedfloat=\count318
+Package caption Info: hyperref package is loaded.
+)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count319
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count320
+)
 (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count317
+\l__color_backend_stack_int=\count321
 ) (./main.aux
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
 Package babel Info: 'spanish' activates 'spanish' shorthands.
 (babel)             Reported on input line 12.
-
-
-LaTeX Warning: Label `fig:pareto' multiply defined.
-
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Info: Redefining \. on input line 20.
-LaTeX Info: Redefining \% on input line 20.
- (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Info: Redefining \. on input line 21.
+LaTeX Info: Redefining \% on input line 21.
+
+(/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count318
-\scratchdimen=\dimen186
+\scratchcounter=\count322
+\scratchdimen=\dimen194
 \scratchbox=\box55
-\nofMPsegments=\count319
-\nofMParguments=\count320
+\nofMPsegments=\count323
+\nofMParguments=\count324
 \everyMPshowfont=\toks27
-\MPscratchCnt=\count321
-\MPscratchDim=\dimen187
-\MPnumerator=\count322
-\makeMPintoPDFobject=\count323
+\MPscratchCnt=\count325
+\MPscratchDim=\dimen195
+\MPnumerator=\count326
+\makeMPintoPDFobject=\count327
 \everyMPtoPDFconversion=\toks28
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -417,7 +441,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 20.
+Package hyperref Info: Link coloring OFF on input line 21.
  (./main.out)
 (./main.out)
 \@outlinefile=\write3
@@ -458,108 +482,163 @@ Package hyperref Info: Link coloring OFF on input line 20.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 23.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 24.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 23.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 24.
 
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<../build/plot_chromosome.png, id=78, 954.9276pt x 381.8265pt>
-File: ../build/plot_chromosome.png Graphic file (type png)
-<use ../build/plot_chromosome.png>
-Package pdftex.def Info: ../build/plot_chromosome.png  used on input line 57.
-(pdftex.def)             Requested size: 239.55144pt x 95.78265pt.
+Underfull \hbox (badness 2460) in paragraph at lines 31--31
+[]\OT1/cmr/bx/n/14.4 Introducci^^Son: El Via-je To-
+ []
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Underfull \hbox (badness 6445) in paragraph at lines 36--37
+[]\OT1/cmr/bx/n/10 Generaci^^Son 1: Fou-rier Ma-ni-fold (FM-
+ []
 
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+Underfull \hbox (badness 3428) in paragraph at lines 37--38
+[]\OT1/cmr/bx/n/10 Generaci^^Son 2: An-gu-lar Ma-ni-fold (AM-
+ []
+
+
+Underfull \hbox (badness 2310) in paragraph at lines 45--45
+[]\OT1/cmr/bx/n/12 Generaci^^Son 1: Fou-rier Ma-ni-fold
+ []
+
+
+Underfull \vbox (badness 7256) has occurred while \output is active []
+
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-<../build/plot_angular_chromosome.png, id=102, 974.6814pt x 570.933pt>
+<../build/plot_chromosome.png, id=98, 995.8806pt x 381.5856pt>
+File: ../build/plot_chromosome.png Graphic file (type png)
+<use ../build/plot_chromosome.png>
+Package pdftex.def Info: ../build/plot_chromosome.png  used on input line 60.
+(pdftex.def)             Requested size: 239.55144pt x 91.7862pt.
+<../build/plot_angular_chromosome.png, id=100, 2236.2747pt x 1438.173pt>
 File: ../build/plot_angular_chromosome.png Graphic file (type png)
 <use ../build/plot_angular_chromosome.png>
 Package pdftex.def Info: ../build/plot_angular_chromosome.png  used on input li
-ne 91.
-(pdftex.def)             Requested size: 239.55144pt x 140.31975pt.
+ne 76.
+(pdftex.def)             Requested size: 239.55144pt x 154.05196pt.
 
-Underfull \hbox (badness 1701) in paragraph at lines 96--96
-[]\OT1/cmr/bx/n/12 Espacio de Op-ti-mi-za-ci^^Son Multi-
+Underfull \hbox (badness 1472) in paragraph at lines 77--77
+[]\OT1/cmr/m/n/10 Figura 2: |Re-pre-sen-ta-ci^^Son del Cro-mo-so-ma An-gu-lar
  []
 
+<../build/plot_gam_chromosome.png, id=101, 2306.8584pt x 644.6484pt>
+File: ../build/plot_gam_chromosome.png Graphic file (type png)
+<use ../build/plot_gam_chromosome.png>
+Package pdftex.def Info: ../build/plot_gam_chromosome.png  used on input line 9
+2.
+(pdftex.def)             Requested size: 239.55144pt x 66.93758pt.
 
-Overfull \hbox (38.37021pt too wide) detected at line 112
-[][][]\OML/cmm/m/it/10 O[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 ^^U []  [] \OT1/c
-mr/m/n/10 + (1 \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 ^^U \OMS/cmsy/m/n/10 ^^@ \
-OML/cmm/m/it/10 ^^U[]\OT1/cmr/m/n/10 ) []  [] + \OML/cmm/m/it/10 ^^U[][]
+Underfull \hbox (badness 2158) in paragraph at lines 93--93
+[]\OT1/cmr/m/n/10 Figura 3: |Re-pre-sen-ta-ci^^Son del Cro-mo-so-ma Adi-ti-vo
  []
 
 [2 <../build/plot_chromosome.png> <../build/plot_angular_chromosome.png>]
-<../build/plot_pareto.png, id=120, 498.663pt x 354.123pt>
-File: ../build/plot_pareto.png Graphic file (type png)
-<use ../build/plot_pareto.png>
-Package pdftex.def Info: ../build/plot_pareto.png  used on input line 117.
-(pdftex.def)             Requested size: 239.55144pt x 170.11758pt.
+<../build/plot_shm_chromosome.png, id=118, 2306.8584pt x 644.6484pt>
+File: ../build/plot_shm_chromosome.png Graphic file (type png)
+<use ../build/plot_shm_chromosome.png>
+Package pdftex.def Info: ../build/plot_shm_chromosome.png  used on input line 1
+08.
+(pdftex.def)             Requested size: 239.55144pt x 66.93758pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
-[]\OT1/cmr/bx/n/10 Paralelismo Multi-n^^Sucleo sin Blo-queos
+Underfull \vbox (badness 7099) has occurred while \output is active []
+
+
+Underfull \hbox (badness 3168) in paragraph at lines 120--120
+[]\OT1/cmr/bx/n/12 Inferencia To-pol^^Sogi-ca (Dis-tan-cia
  []
 
 
-Underfull \hbox (badness 1308) in paragraph at lines 139--140
-\OT1/cmr/m/n/10 ^^Sulti-ma em-plea \OT1/cmr/m/it/10 acu-mu-la-do-res thread-loc
-al\OT1/cmr/m/n/10 : ca-da
+Underfull \hbox (badness 1067) in paragraph at lines 138--139
+[]\OT1/cmr/bx/n/10 Objetivo 1 (Error Emp^^S^^Pri-co): \OT1/cmr/m/n/10 Frac-ci^^
+Son de
  []
 
-<../build/plot_benchmark.png, id=123, 1004.553pt x 354.123pt>
-File: ../build/plot_benchmark.png Graphic file (type png)
-<use ../build/plot_benchmark.png>
-Package pdftex.def Info: ../build/plot_benchmark.png  used on input line 151.
-(pdftex.def)             Requested size: 489.10287pt x 172.41946pt.
-<../build/plot_time.png, id=124, 1004.553pt x 354.123pt>
-File: ../build/plot_time.png Graphic file (type png)
-<use ../build/plot_time.png>
-Package pdftex.def Info: ../build/plot_time.png  used on input line 158.
-(pdftex.def)             Requested size: 489.10287pt x 172.41946pt.
-<../build/plot_dataset.png, id=125, 570.933pt x 426.393pt>
+
+Underfull \hbox (badness 1117) in paragraph at lines 138--139
+\OT1/cmr/m/n/10 pun-tos mal en-cap-su-la-dos $\OML/cmm/m/it/10 O[] \OT1/cmr/m/n
+/10 = [] [][] \U/msb/m/n/10 I\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 y[] \OMS/cmsy/m/
+n/10 6\OT1/cmr/m/n/10 =
+ []
+
+[3 <../build/plot_gam_chromosome.png> <../build/plot_shm_chromosome.png>]
+(./tables.tex) (./wilcoxon.tex
+Overfull \hbox (249.5593pt too wide) in paragraph at lines 4--25
+ [][] 
+ []
+
+)
+<../build/benchmark_acc.png, id=135, 1293.99435pt x 426.393pt>
+File: ../build/benchmark_acc.png Graphic file (type png)
+<use ../build/benchmark_acc.png>
+Package pdftex.def Info: ../build/benchmark_acc.png  used on input line 165.
+(pdftex.def)             Requested size: 489.10287pt x 161.1657pt.
+<../build/benchmark_time.png, id=136, 1293.27165pt x 426.393pt>
+File: ../build/benchmark_time.png Graphic file (type png)
+<use ../build/benchmark_time.png>
+Package pdftex.def Info: ../build/benchmark_time.png  used on input line 172.
+(pdftex.def)             Requested size: 489.10287pt x 161.25677pt.
+
+Underfull \hbox (badness 1275) in paragraph at lines 180--181
+\OT1/cmr/m/n/10 men-te en la Fi-gu-ra []8[]. Aqu^^S^^P ob-ser-va-mos c^^Somo el
+
+ []
+
+<../build/plot_dataset.png, id=139, 570.933pt x 426.393pt>
 File: ../build/plot_dataset.png Graphic file (type png)
 <use ../build/plot_dataset.png>
-Package pdftex.def Info: ../build/plot_dataset.png  used on input line 165.
+Package pdftex.def Info: ../build/plot_dataset.png  used on input line 184.
 (pdftex.def)             Requested size: 239.55144pt x 178.90816pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-File: ../build/plot_pareto.png Graphic file (type png)
-<use ../build/plot_pareto.png>
-Package pdftex.def Info: ../build/plot_pareto.png  used on input line 172.
-(pdftex.def)             Requested size: 239.55144pt x 170.11758pt.
+<../build/plot_pareto_3kernels.png, id=140, 716.6775pt x 426.6339pt>
+File: ../build/plot_pareto_3kernels.png Graphic file (type png)
+<use ../build/plot_pareto_3kernels.png>
+Package pdftex.def Info: ../build/plot_pareto_3kernels.png  used on input line 
+191.
+(pdftex.def)             Requested size: 239.55144pt x 142.59937pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 4927) in paragraph at lines 177--177
-[]\OT1/cmr/bx/n/14.4 Evaluaci^^Son Ex-pe-ri-men-tal y
+Underfull \hbox (badness 3229) in paragraph at lines 196--196
+[]\OT1/cmr/bx/n/12 Transparencia Ex-tre-ma: Fea-tu-re
  []
 
-[3 <../build/plot_pareto.png>] (./tables.tex
+<../build/gam_importance.png, id=142, 715.83435pt x 497.57895pt>
+File: ../build/gam_importance.png Graphic file (type png)
+<use ../build/gam_importance.png>
+Package pdftex.def Info: ../build/gam_importance.png  used on input line 201.
+(pdftex.def)             Requested size: 239.55144pt x 166.50966pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-)
+[4]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [4 <../build/plot_benchmark.png> <../build/plot_time.png>]
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [5 <../build/plot_dataset.png>] [6] [7
-
-] (./main.aux
+ [5 <../build/benchmark_acc.png> <../build/benchmark_time.png>] [6 <../build/pl
+ot_dataset.png> <../build/plot_pareto_3kernels.png> <../build/gam_importance.pn
+g>]
+(./main.aux
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
 )
@@ -567,38 +646,34 @@ LaTeX Info: Redefining \% on input line 12.
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 878D699FE1E5A44AE7C99999260CE18F;4773.
+(rerunfilecheck)             Checksum: 80CA8193439F2227EC31CBE56354C950;4664.
  ) 
 Here is how much of TeX's memory you used:
- 12311 strings out of 469453
- 187446 string characters out of 5469037
- 657483 words of memory out of 5000000
- 40768 multiletter control sequences out of 15000+600000
- 637215 words of font info for 76 fonts, out of 8000000 for 9000
+ 13759 strings out of 469453
+ 215909 string characters out of 5469037
+ 689133 words of memory out of 5000000
+ 42216 multiletter control sequences out of 15000+600000
+ 637205 words of font info for 76 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 75i,14n,79p,1365b,557s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,10n,79p,1465b,538s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmbxti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
-></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/
-amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (7 pages, 841260 bytes).
+/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
+/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmti7.pfb></usr/share/texmf-dist/fonts/type1/public/ams
+fonts/symbols/msbm10.pfb>
+Output written on main.pdf (6 pages, 2043159 bytes).
 PDF statistics:
- 259 PDF objects out of 1000 (max. 8388607)
- 205 compressed objects within 3 object streams
- 62 named destinations out of 1000 (max. 500000)
- 175 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 249 PDF objects out of 1000 (max. 8388607)
+ 190 compressed objects within 2 object streams
+ 49 named destinations out of 1000 (max. 500000)
+ 198 words of extra memory for PDF output out of 10000 (max. 10000000)
 

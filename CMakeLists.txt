@@ -45,6 +45,18 @@ target_link_libraries(mgda fm_nsga2_core)
 add_executable(benchmark experiments/benchmark.cpp)
 target_link_libraries(benchmark fm_nsga2_core)
 
+# --- MGDA Benchmark (3 kernels × todos los datasets) ---
+add_executable(mgda_bench experiments/mgda_benchmark.cpp)
+target_link_libraries(mgda_bench fm_nsga2_core)
+
+# Target for GAM explainability
+add_executable(gam_explain experiments/gam_explain.cpp)
+target_link_libraries(gam_explain fm_nsga2_core)
+
+# Target for isolating Two Moons training for visualization
+add_executable(train_moons experiments/train_moons.cpp)
+target_link_libraries(train_moons fm_nsga2_core)
+
 # --- Copy data scripts to build dir ---
 configure_file(
   ${CMAKE_SOURCE_DIR}/data/generate_datasets.py
@@ -59,3 +71,5 @@ configure_file(
 
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
+add_executable(train_all_docencia experiments/train_all_docencia.cpp)
+target_link_libraries(train_all_docencia fm_nsga2_core)

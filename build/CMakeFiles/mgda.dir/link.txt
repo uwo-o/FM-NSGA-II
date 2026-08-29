@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/mgda.dir/link.d CMakeFiles/mgda.dir/src/mgda_main.cpp.o -o mgda  libfm_nsga2_core.a /usr/lib/libgomp.so /usr/lib/libpthread.a

@@ -143,6 +143,19 @@ fm_nsga2/fast:
 .PHONY : fm_nsga2/fast
 
 #=============================================================================
+# Target rules for targets named mgda
+
+# Build rule for target.
+mgda: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mgda
+.PHONY : mgda
+
+# fast build rule for target.
+mgda/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mgda.dir/build.make CMakeFiles/mgda.dir/build
+.PHONY : mgda/fast
+
+#=============================================================================
 # Target rules for targets named benchmark
 
 # Build rule for target.
@@ -154,6 +167,58 @@ benchmark: cmake_check_build_system
 benchmark/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/build
 .PHONY : benchmark/fast
+
+#=============================================================================
+# Target rules for targets named mgda_bench
+
+# Build rule for target.
+mgda_bench: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mgda_bench
+.PHONY : mgda_bench
+
+# fast build rule for target.
+mgda_bench/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mgda_bench.dir/build.make CMakeFiles/mgda_bench.dir/build
+.PHONY : mgda_bench/fast
+
+#=============================================================================
+# Target rules for targets named gam_explain
+
+# Build rule for target.
+gam_explain: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gam_explain
+.PHONY : gam_explain
+
+# fast build rule for target.
+gam_explain/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gam_explain.dir/build.make CMakeFiles/gam_explain.dir/build
+.PHONY : gam_explain/fast
+
+#=============================================================================
+# Target rules for targets named train_moons
+
+# Build rule for target.
+train_moons: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 train_moons
+.PHONY : train_moons
+
+# fast build rule for target.
+train_moons/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/train_moons.dir/build.make CMakeFiles/train_moons.dir/build
+.PHONY : train_moons/fast
+
+#=============================================================================
+# Target rules for targets named train_all_docencia
+
+# Build rule for target.
+train_all_docencia: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 train_all_docencia
+.PHONY : train_all_docencia
+
+# fast build rule for target.
+train_all_docencia/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/train_all_docencia.dir/build.make CMakeFiles/train_all_docencia.dir/build
+.PHONY : train_all_docencia/fast
 
 experiments/benchmark.o: experiments/benchmark.cpp.o
 .PHONY : experiments/benchmark.o
@@ -178,6 +243,102 @@ experiments/benchmark.s: experiments/benchmark.cpp.s
 experiments/benchmark.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmark.dir/build.make CMakeFiles/benchmark.dir/experiments/benchmark.cpp.s
 .PHONY : experiments/benchmark.cpp.s
+
+experiments/gam_explain.o: experiments/gam_explain.cpp.o
+.PHONY : experiments/gam_explain.o
+
+# target to build an object file
+experiments/gam_explain.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gam_explain.dir/build.make CMakeFiles/gam_explain.dir/experiments/gam_explain.cpp.o
+.PHONY : experiments/gam_explain.cpp.o
+
+experiments/gam_explain.i: experiments/gam_explain.cpp.i
+.PHONY : experiments/gam_explain.i
+
+# target to preprocess a source file
+experiments/gam_explain.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gam_explain.dir/build.make CMakeFiles/gam_explain.dir/experiments/gam_explain.cpp.i
+.PHONY : experiments/gam_explain.cpp.i
+
+experiments/gam_explain.s: experiments/gam_explain.cpp.s
+.PHONY : experiments/gam_explain.s
+
+# target to generate assembly for a file
+experiments/gam_explain.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gam_explain.dir/build.make CMakeFiles/gam_explain.dir/experiments/gam_explain.cpp.s
+.PHONY : experiments/gam_explain.cpp.s
+
+experiments/mgda_benchmark.o: experiments/mgda_benchmark.cpp.o
+.PHONY : experiments/mgda_benchmark.o
+
+# target to build an object file
+experiments/mgda_benchmark.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mgda_bench.dir/build.make CMakeFiles/mgda_bench.dir/experiments/mgda_benchmark.cpp.o
+.PHONY : experiments/mgda_benchmark.cpp.o
+
+experiments/mgda_benchmark.i: experiments/mgda_benchmark.cpp.i
+.PHONY : experiments/mgda_benchmark.i
+
+# target to preprocess a source file
+experiments/mgda_benchmark.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mgda_bench.dir/build.make CMakeFiles/mgda_bench.dir/experiments/mgda_benchmark.cpp.i
+.PHONY : experiments/mgda_benchmark.cpp.i
+
+experiments/mgda_benchmark.s: experiments/mgda_benchmark.cpp.s
+.PHONY : experiments/mgda_benchmark.s
+
+# target to generate assembly for a file
+experiments/mgda_benchmark.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mgda_bench.dir/build.make CMakeFiles/mgda_bench.dir/experiments/mgda_benchmark.cpp.s
+.PHONY : experiments/mgda_benchmark.cpp.s
+
+experiments/train_all_docencia.o: experiments/train_all_docencia.cpp.o
+.PHONY : experiments/train_all_docencia.o
+
+# target to build an object file
+experiments/train_all_docencia.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/train_all_docencia.dir/build.make CMakeFiles/train_all_docencia.dir/experiments/train_all_docencia.cpp.o
+.PHONY : experiments/train_all_docencia.cpp.o
+
+experiments/train_all_docencia.i: experiments/train_all_docencia.cpp.i
+.PHONY : experiments/train_all_docencia.i
+
+# target to preprocess a source file
+experiments/train_all_docencia.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/train_all_docencia.dir/build.make CMakeFiles/train_all_docencia.dir/experiments/train_all_docencia.cpp.i
+.PHONY : experiments/train_all_docencia.cpp.i
+
+experiments/train_all_docencia.s: experiments/train_all_docencia.cpp.s
+.PHONY : experiments/train_all_docencia.s
+
+# target to generate assembly for a file
+experiments/train_all_docencia.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/train_all_docencia.dir/build.make CMakeFiles/train_all_docencia.dir/experiments/train_all_docencia.cpp.s
+.PHONY : experiments/train_all_docencia.cpp.s
+
+experiments/train_moons.o: experiments/train_moons.cpp.o
+.PHONY : experiments/train_moons.o
+
+# target to build an object file
+experiments/train_moons.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/train_moons.dir/build.make CMakeFiles/train_moons.dir/experiments/train_moons.cpp.o
+.PHONY : experiments/train_moons.cpp.o
+
+experiments/train_moons.i: experiments/train_moons.cpp.i
+.PHONY : experiments/train_moons.i
+
+# target to preprocess a source file
+experiments/train_moons.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/train_moons.dir/build.make CMakeFiles/train_moons.dir/experiments/train_moons.cpp.i
+.PHONY : experiments/train_moons.cpp.i
+
+experiments/train_moons.s: experiments/train_moons.cpp.s
+.PHONY : experiments/train_moons.s
+
+# target to generate assembly for a file
+experiments/train_moons.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/train_moons.dir/build.make CMakeFiles/train_moons.dir/experiments/train_moons.cpp.s
+.PHONY : experiments/train_moons.cpp.s
 
 src/dataset.o: src/dataset.cpp.o
 .PHONY : src/dataset.o
@@ -251,6 +412,30 @@ src/manifold.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/fm_nsga2_core.dir/build.make CMakeFiles/fm_nsga2_core.dir/src/manifold.cpp.s
 .PHONY : src/manifold.cpp.s
 
+src/mgda_main.o: src/mgda_main.cpp.o
+.PHONY : src/mgda_main.o
+
+# target to build an object file
+src/mgda_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mgda.dir/build.make CMakeFiles/mgda.dir/src/mgda_main.cpp.o
+.PHONY : src/mgda_main.cpp.o
+
+src/mgda_main.i: src/mgda_main.cpp.i
+.PHONY : src/mgda_main.i
+
+# target to preprocess a source file
+src/mgda_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mgda.dir/build.make CMakeFiles/mgda.dir/src/mgda_main.cpp.i
+.PHONY : src/mgda_main.cpp.i
+
+src/mgda_main.s: src/mgda_main.cpp.s
+.PHONY : src/mgda_main.s
+
+# target to generate assembly for a file
+src/mgda_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mgda.dir/build.make CMakeFiles/mgda.dir/src/mgda_main.cpp.s
+.PHONY : src/mgda_main.cpp.s
+
 src/nsga2.o: src/nsga2.cpp.o
 .PHONY : src/nsga2.o
 
@@ -286,9 +471,26 @@ help:
 	@echo "... benchmark"
 	@echo "... fm_nsga2"
 	@echo "... fm_nsga2_core"
+	@echo "... gam_explain"
+	@echo "... mgda"
+	@echo "... mgda_bench"
+	@echo "... train_all_docencia"
+	@echo "... train_moons"
 	@echo "... experiments/benchmark.o"
 	@echo "... experiments/benchmark.i"
 	@echo "... experiments/benchmark.s"
+	@echo "... experiments/gam_explain.o"
+	@echo "... experiments/gam_explain.i"
+	@echo "... experiments/gam_explain.s"
+	@echo "... experiments/mgda_benchmark.o"
+	@echo "... experiments/mgda_benchmark.i"
+	@echo "... experiments/mgda_benchmark.s"
+	@echo "... experiments/train_all_docencia.o"
+	@echo "... experiments/train_all_docencia.i"
+	@echo "... experiments/train_all_docencia.s"
+	@echo "... experiments/train_moons.o"
+	@echo "... experiments/train_moons.i"
+	@echo "... experiments/train_moons.s"
 	@echo "... src/dataset.o"
 	@echo "... src/dataset.i"
 	@echo "... src/dataset.s"
@@ -298,6 +500,9 @@ help:
 	@echo "... src/manifold.o"
 	@echo "... src/manifold.i"
 	@echo "... src/manifold.s"
+	@echo "... src/mgda_main.o"
+	@echo "... src/mgda_main.i"
+	@echo "... src/mgda_main.s"
 	@echo "... src/nsga2.o"
 	@echo "... src/nsga2.i"
 	@echo "... src/nsga2.s"

@@ -13,6 +13,7 @@
 #include "metrics.hpp"
 #include "knn.hpp"
 #include "angular_manifold.hpp"
+#include "gam_manifold.hpp"
 #include "naive_bayes.hpp"
 #include "svm.hpp"
 #include "decision_tree.hpp"
@@ -90,11 +91,31 @@ Result evaluate_nsga2_angular(const std::string& ds_name,
     };
 }
 
+Result evaluate_nsga2_gam(const std::string& ds_name,
+                          const Dataset& train, const Dataset& test,
+                          const NSGAConfig& cfg) {
+    auto t0 = Clock::now();
+    Classifier<GAMManifold> clf(cfg);
+    clf.fit(train);
+    double ms = std::chrono::duration<double,std::milli>(Clock::now()-t0).count();
+
+    auto preds = clf.predict_all(test);
+    std::vector<int> truth;
+    for (auto& s : test.samples) truth.push_back(s.label);
+
+    return {
+        ds_name, "GAM-NSGA-II",
+        multiclass_accuracy(truth, preds),
+        macro_f1(truth, preds, test.class_labels),
+        ms
+    };
+}
+
 // ─── Main ────────────────────────────────────────────────────
 int main() {
     std::cout << "\n";
     std::cout << "╔══════════════════════════════════════════════════════════╗\n";
-    std::cout << "║        BENCHMARK: FM-NSGA-II vs Baselines          ║\n";
+    std::cout << "║   BENCHMARK: FM / AM / GAM - NSGA-II vs Baselines   ║\n";
     std::cout << "╚══════════════════════════════════════════════════════════╝\n\n";
 
     // ─── Datasets (ajustar paths según build dir) ─────────────
@@ -161,6 +182,13 @@ int main() {
         results.push_back(r_a);
         std::cout << " acc=" << std::fixed << std::setprecision(4) << r_a.accuracy
                   << " F1=" << r_a.f1 << "\n";
+
+        // NSGA-II GAM
+        std::cout << "  [NSGA-II GAM]..." << std::flush;
+        auto r_g = evaluate_nsga2_gam(ds_entry.name, train, test, cfg);
+        results.push_back(r_g);
+        std::cout << " acc=" << std::fixed << std::setprecision(4) << r_g.accuracy
+                  << " F1=" << r_g.f1 << "\n";
 
         // Baselines
         KNN knn3(3), knn7(7);

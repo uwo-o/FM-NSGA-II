@@ -1,0 +1,25 @@
+\begin{table}[ht]
+\centering
+\caption{Wilcoxon signed-rank test $p$-values across benchmark datasets.}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lllrll}
+\toprule
+Metric & Model A & Model B & p-value & Better (Mean) & Significant (a=0.05) \\
+\midrule
+Accuracy & SHM-NSGA-II & AM-NSGA-II (Angular) & 0.6875 & SHM-NSGA-II & No \\
+Accuracy & GAM-NSGA-II & AM-NSGA-II (Angular) & 0.1562 & GAM-NSGA-II & No \\
+Accuracy & SHM-NSGA-II & SVM-RBF (C=1 $\gamma$=1.00) & 0.0781 & SVM-RBF (C=1 $\gamma$=1.00) & No \\
+Accuracy & GAM-NSGA-II & FM-NSGA-II (Fourier) & 0.8438 & FM-NSGA-II (Fourier) & No \\
+F1 Score & SHM-NSGA-II & AM-NSGA-II (Angular) & 0.6875 & SHM-NSGA-II & No \\
+F1 Score & GAM-NSGA-II & AM-NSGA-II (Angular) & 0.0391 & GAM-NSGA-II & Yes \\
+F1 Score & SHM-NSGA-II & SVM-RBF (C=1 $\gamma$=1.00) & 0.0781 & SVM-RBF (C=1 $\gamma$=1.00) & No \\
+F1 Score & GAM-NSGA-II & FM-NSGA-II (Fourier) & 0.6875 & GAM-NSGA-II & No \\
+Time (ms) & SHM-NSGA-II & AM-NSGA-II (Angular) & 0.0039 & AM-NSGA-II (Angular) & Yes \\
+Time (ms) & GAM-NSGA-II & AM-NSGA-II (Angular) & 0.0039 & AM-NSGA-II (Angular) & Yes \\
+Time (ms) & SHM-NSGA-II & SVM-RBF (C=1 $\gamma$=1.00) & 0.0039 & SVM-RBF (C=1 $\gamma$=1.00) & Yes \\
+Time (ms) & GAM-NSGA-II & FM-NSGA-II (Fourier) & 0.0039 & GAM-NSGA-II & Yes \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:wilcoxon}
+\end{table}

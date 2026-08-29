@@ -22,7 +22,7 @@ plt.rcParams.update({
     'axes.spines.top': False,
     'axes.spines.right': False,
 })
-PALETTE = ['#4C72B0', '#DD8452', '#55A868', '#C44E52', '#8172B2']
+PALETTE = ['#228B22', '#00C8FF', '#4C72B0', '#DD8452', '#8172B2']
 
 def load_csv(path):
     """Carga CSV: retorna (X, y) donde X = features, y = labels."""
@@ -60,7 +60,7 @@ def plot_2d_boundaries(dataset_path="data/moons_2d.csv"):
     n_cls = len(classes)
 
     fig, ax = plt.subplots(1, 1, figsize=(8, 6))
-    ax.set_title("FM-NSGA-II — Fronteras de decisión", fontsize=13)
+    ax.set_title("FM-NSGA-II — Fronteras de decisión", fontsize=18, fontweight="bold")
 
     # Puntos del dataset
     for k, cls in enumerate(classes):
@@ -68,16 +68,18 @@ def plot_2d_boundaries(dataset_path="data/moons_2d.csv"):
         ax.scatter(X[mask, 0], X[mask, 1], c=PALETTE[k % len(PALETTE)],
                    alpha=0.7, s=25, label=f"Clase {cls}", zorder=3)
 
-    # Grilla de clasificación (requiere manifolds guardados)
-    # Se omite si no hay datos de manifold
-    ax.set_xlabel("Feature 1 (normalizado)")
-    ax.set_ylabel("Feature 2 (normalizado)")
-    ax.legend(loc="upper right")
+    # Grilla de clasificación o curva paramétrica
+    # (Bordes removidos a petición)
+
+    ax.set_xlabel("Feature 1 (normalizado)", fontsize=16)
+    ax.set_ylabel("Feature 2 (normalizado)", fontsize=16)
+    ax.legend(loc="upper right", fontsize=14)
+    ax.tick_params(axis='both', which='major', labelsize=14)
     ax.set_xlim(-0.05, 1.05); ax.set_ylim(-0.05, 1.05)
     ax.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig("plot_dataset.png", bbox_inches='tight')
-    print("Guardado: plot_dataset.png")
+    plt.savefig("build/plot_dataset.png", bbox_inches='tight')
+    print("Guardado: build/plot_dataset.png")
 
 def plot_benchmark_results(csv_path="benchmark_results.csv"):
     """Gráfico de barras comparando accuracy en todos los datasets."""
@@ -103,16 +105,19 @@ def plot_benchmark_results(csv_path="benchmark_results.csv"):
         for ds in datasets:
             row = df[(df["dataset"] == ds) & (df["classifier"] == clf)]
             accs.append(row["accuracy"].values[0] if len(row) else 0.0)
-        CUSTOM_PALETTE = ["#4A90E2", "#9013FE", "#F5A623", "#D0021B", "#BD10E0", "#50E3C2", "#8B572A"]
+        CUSTOM_PALETTE = ["#4A90E2", "#00C8FF", "#F5A623", "#D0021B", "#00E5FF", "#50E3C2", "#8B572A"]
         if "Fourier" in clf:
             color = "limegreen"
             alpha_val = 1.0
         elif "Angular" in clf:
-            color = "deepskyblue"
+            color = "#00C8FF"
+            alpha_val = 1.0
+        elif "GAM" in clf:
+            color = "#00E5FF"
             alpha_val = 1.0
         else:
             color = CUSTOM_PALETTE[ki % len(CUSTOM_PALETTE)]
-            alpha_val = 0.35
+            alpha_val = 0.45
         b = ax.bar(x + offset[ki], accs, width, label=clf[:20],
                    color=color, alpha=alpha_val, edgecolor='white')
         bars.append(b)
@@ -153,16 +158,19 @@ def plot_time_results(csv_path="benchmark_results.csv"):
             t = row["train_ms"].values[0] if len(row) else 1.0
             # Evitar log(0) sumando 1ms
             times.append(max(t, 1.0))
-        CUSTOM_PALETTE = ["#4A90E2", "#9013FE", "#F5A623", "#D0021B", "#BD10E0", "#50E3C2", "#8B572A"]
+        CUSTOM_PALETTE = ["#4A90E2", "#00C8FF", "#F5A623", "#D0021B", "#00E5FF", "#50E3C2", "#8B572A"]
         if "Fourier" in clf:
             color = "limegreen"
             alpha_val = 1.0
         elif "Angular" in clf:
-            color = "deepskyblue"
+            color = "#00C8FF"
+            alpha_val = 1.0
+        elif "GAM" in clf:
+            color = "#00E5FF"
             alpha_val = 1.0
         else:
             color = CUSTOM_PALETTE[ki % len(CUSTOM_PALETTE)]
-            alpha_val = 0.35
+            alpha_val = 0.45
         ax.bar(x + offset[ki], times, width, label=clf[:20],
                color=color, alpha=alpha_val, edgecolor='white')
 

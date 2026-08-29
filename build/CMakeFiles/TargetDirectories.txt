@@ -1,5 +1,10 @@
 /home/uwo/Projects/RM-NSGA-II/build/CMakeFiles/fm_nsga2_core.dir
 /home/uwo/Projects/RM-NSGA-II/build/CMakeFiles/fm_nsga2.dir
+/home/uwo/Projects/RM-NSGA-II/build/CMakeFiles/mgda.dir
 /home/uwo/Projects/RM-NSGA-II/build/CMakeFiles/benchmark.dir
+/home/uwo/Projects/RM-NSGA-II/build/CMakeFiles/mgda_bench.dir
+/home/uwo/Projects/RM-NSGA-II/build/CMakeFiles/gam_explain.dir
+/home/uwo/Projects/RM-NSGA-II/build/CMakeFiles/train_moons.dir
+/home/uwo/Projects/RM-NSGA-II/build/CMakeFiles/train_all_docencia.dir
 /home/uwo/Projects/RM-NSGA-II/build/CMakeFiles/edit_cache.dir
 /home/uwo/Projects/RM-NSGA-II/build/CMakeFiles/rebuild_cache.dir

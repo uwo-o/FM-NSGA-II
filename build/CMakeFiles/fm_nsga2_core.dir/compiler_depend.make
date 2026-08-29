@@ -565,6 +565,7 @@ CMakeFiles/fm_nsga2_core.dir/src/manifold.cpp.o: /home/uwo/Projects/RM-NSGA-II/s
 CMakeFiles/fm_nsga2_core.dir/src/nsga2.cpp.o: /home/uwo/Projects/RM-NSGA-II/src/nsga2.cpp \
   /home/uwo/Projects/RM-NSGA-II/include/angular_manifold.hpp \
   /home/uwo/Projects/RM-NSGA-II/include/dataset.hpp \
+  /home/uwo/Projects/RM-NSGA-II/include/gam_manifold.hpp \
   /home/uwo/Projects/RM-NSGA-II/include/manifold.hpp \
   /home/uwo/Projects/RM-NSGA-II/include/nsga2.hpp \
   /home/uwo/Projects/RM-NSGA-II/include/objectives.hpp \
@@ -901,6 +902,8 @@ CMakeFiles/fm_nsga2_core.dir/src/nsga2.cpp.o: /home/uwo/Projects/RM-NSGA-II/src/
 /usr/include/c++/16/bits/locale_conv.h:
 
 /home/uwo/Projects/RM-NSGA-II/include/operators.hpp:
+
+/home/uwo/Projects/RM-NSGA-II/include/gam_manifold.hpp:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdint.h:
 

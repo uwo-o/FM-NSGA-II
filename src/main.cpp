@@ -99,15 +99,25 @@ int main(int argc, char* argv[]) {
     run_baseline(svm);
     run_baseline(dt);
 
-    std::cout << "────────────────────────────────────────────────────\n";
     std::cout << "\nManifolds aprendidos:\n";
+    std::ofstream mj("angular_manifolds_nsga.json");
+    mj << "{\"manifolds\":[\n";
     for (size_t k = 0; k < clf.manifolds().size(); ++k) {
         auto& m = clf.manifolds()[k];
         std::cout << "  Clase " << clf.labels()[k]
                   << ": " << m.n_harmonics << " harmónicos"
                   << "  arco=" << std::fixed << std::setprecision(3) << m.arc_length()
                   << "\n";
+        mj << "  {\"class\":" << clf.labels()[k] << ",\n"
+           << "   \"dim\":" << m.dim << ",\n"
+           << "   \"n_harmonics\":" << m.n_harmonics << ",\n"
+           << "   \"center\":["; for(int i=0;i<m.dim;++i) mj << m.center[i] << (i==m.dim-1?"":","); mj << "],\n"
+           << "   \"v\":["; for(int i=0;i<m.dim;++i) mj << m.v[i] << (i==m.dim-1?"":","); mj << "],\n"
+           << "   \"w\":["; for(int i=0;i<m.dim;++i) mj << m.w[i] << (i==m.dim-1?"":","); mj << "],\n"
+           << "   \"coefs\":["; for(int i=0;i<(int)m.coefs.size();++i) mj << m.coefs[i] << (i==(int)m.coefs.size()-1?"":","); mj << "]}\n";
+        if(k < clf.manifolds().size()-1) mj << ",\n";
     }
+    mj << "]}\n";
     std::cout << "\n✓ Exportando frente de Pareto...\n";
     std::ofstream ofs("pareto_front.csv");
     ofs << "clase,error,complejidad,rank\n";

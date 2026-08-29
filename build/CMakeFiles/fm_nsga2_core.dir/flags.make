@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/uwo/Projects/RM-NSGA-II/include -I/home/uwo/Projects/RM-NSGA-II/baselines
 
-CXX_FLAGS = -O2 -O3 -DNDEBUG -std=c++17 -Wall -Wextra -O2 -fopenmp
+CXX_FLAGS = -O3 -O3 -DNDEBUG -std=c++17 -Wall -Wextra -O2 -fopenmp
 
