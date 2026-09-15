@@ -194,14 +194,7 @@ La Navaja de Ockham paramétrica, definida por nuestro segundo objetivo ($O_2$),
 \end{figure}
 
 \subsection{Transparencia Extrema: Feature Importance (GAM)}
-Al aislar la influencia axial mediante la adición de polinomios independientes, el kernel GAM posee auditabilidad plena (White-Box). En la Figura \ref{fig:gam_imp}, extrajimos vectorialmente los pesos de dimensionalidad optimizados de \textit{Breast Cancer (30D)}. Tal y como se detalló teóricamente en la formulación del GAM, los ejes multiplicadores $w_d$ actúan como atenuadores de ruido. Podemos apreciar determinísticamente que el modelo suprimió más del 60\% del ruido diagnóstico y confió masivamente el resultado a factores morfológicos críticos sin requerir aproximaciones post-hoc opacas (como LIME o SHAP).
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\linewidth]{../build/gam_importance.png}
-    \caption{Feature Importance nativa y explicable extraída de los parámetros internos explícitos del GAM-Manifold.}
-    \label{fig:gam_imp}
-\end{figure}
+Al aislar la influencia axial mediante la adición de polinomios independientes, el kernel GAM posee auditabilidad plena (White-Box). Extrajimos vectorialmente los pesos de dimensionalidad optimizados de \textit{Breast Cancer (30D)}. Tal y como se detalló teóricamente en la formulación del GAM, los ejes multiplicadores $w_d$ actúan como atenuadores de ruido. Podemos apreciar determinísticamente que el modelo suprimió más del 60\% del ruido diagnóstico y confió masivamente el resultado a factores morfológicos críticos sin requerir aproximaciones post-hoc opacas (como LIME o SHAP).
 
 \subsection{El Límite: La Maldición de Dimensionalidad}
 Al someter a la familia de algoritmos al dataset sintético \textit{Adversarial Noise (52D)} —círculos bidimensionales ofuscados por 50 dimensiones de ruido extremo—, todos los modelos de distancias ponderadas (Topológicos y $k$-NN) se deprimieron hacia un $\sim$50\% Accuracy, simulando el azar. El espacio exploratorio para los pesos del NSGA-II o los gradientes en MGDA fue abrumado por el volumen euclidiano del hipercubo. Los únicos algoritmos capaces de extraer la señal real fueron los Árboles de Decisión, cuya bifurcación ortogonal actúa matemáticamente como un descarte topológico exacto para hiper-planos.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.16)  29 AUG 2026 09:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.16)  29 AUG 2026 09:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -577,12 +577,7 @@ n/10 6\OT1/cmr/m/n/10 =
  []
 
 [3 <../build/plot_gam_chromosome.png> <../build/plot_shm_chromosome.png>]
-(./tables.tex) (./wilcoxon.tex
-Overfull \hbox (249.5593pt too wide) in paragraph at lines 4--25
- [][] 
- []
-
-)
+(./tables.tex) (./wilcoxon.tex)
 <../build/benchmark_acc.png, id=135, 1293.99435pt x 426.393pt>
 File: ../build/benchmark_acc.png Graphic file (type png)
 <use ../build/benchmark_acc.png>
@@ -621,24 +616,17 @@ Underfull \hbox (badness 3229) in paragraph at lines 196--196
 []\OT1/cmr/bx/n/12 Transparencia Ex-tre-ma: Fea-tu-re
  []
 
-<../build/gam_importance.png, id=142, 715.83435pt x 497.57895pt>
-File: ../build/gam_importance.png Graphic file (type png)
-<use ../build/gam_importance.png>
-Package pdftex.def Info: ../build/gam_importance.png  used on input line 201.
-(pdftex.def)             Requested size: 239.55144pt x 166.50966pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 [4]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1082) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [5 <../build/benchmark_acc.png> <../build/benchmark_time.png>] [6 <../build/pl
-ot_dataset.png> <../build/plot_pareto_3kernels.png> <../build/gam_importance.pn
-g>]
-(./main.aux
+ [5 <../build/benchmark_acc.png> <../build/benchmark_time.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6 <../build/plot_dataset.png> <../build/plot_pareto_3kernels.png>] (./main.au
+x
 LaTeX Info: Redefining \. on input line 12.
 LaTeX Info: Redefining \% on input line 12.
 )
@@ -650,13 +638,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 80CA8193439F2227EC31CBE56354C950;4664.
  ) 
 Here is how much of TeX's memory you used:
- 13759 strings out of 469453
- 215909 string characters out of 5469037
- 689133 words of memory out of 5000000
- 42216 multiletter control sequences out of 15000+600000
+ 13748 strings out of 469453
+ 215588 string characters out of 5469037
+ 688997 words of memory out of 5000000
+ 42206 multiletter control sequences out of 15000+600000
  637205 words of font info for 76 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 75i,10n,79p,1465b,538s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,10n,79p,1465b,540s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmbx7.pfb></usr/share/texmf-dist/fonts/type1/public
@@ -670,10 +658,10 @@ public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
 f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmti7.pfb></usr/share/texmf-dist/fonts/type1/public/ams
 fonts/symbols/msbm10.pfb>
-Output written on main.pdf (6 pages, 2043159 bytes).
+Output written on main.pdf (6 pages, 1952933 bytes).
 PDF statistics:
- 249 PDF objects out of 1000 (max. 8388607)
- 190 compressed objects within 2 object streams
- 49 named destinations out of 1000 (max. 500000)
- 198 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 244 PDF objects out of 1000 (max. 8388607)
+ 187 compressed objects within 2 object streams
+ 48 named destinations out of 1000 (max. 500000)
+ 193 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -54,14 +54,14 @@ def run_tests():
     
     # Save to LaTeX
     with open("paper/wilcoxon.tex", "w") as f:
-        f.write("\\begin{table}[ht]\n")
+        f.write("\\begin{table*}[ht]\n")
         f.write("\\centering\n")
         f.write("\\caption{Wilcoxon signed-rank test $p$-values across benchmark datasets.}\n")
         f.write("\\resizebox{\\textwidth}{!}{\n")
         f.write(res_df.to_latex(index=False, float_format="%.4f"))
         f.write("}\n")
         f.write("\\label{tab:wilcoxon}\n")
-        f.write("\\end{table}\n")
+        f.write("\\end{table*}\n")
         
     print(res_df.to_string())
     print("\nSaved LaTeX table to paper/wilcoxon.tex")
